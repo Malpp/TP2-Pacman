@@ -19,11 +19,15 @@ namespace Pacman
 		//The window of application
 		private RenderWindow window;
 
+		public const int WINDOW_HEIGHT = 496;
+		public const int WINDOW_WIDTH = 448;
 		//Used to time the movement of the objects on screen
 		Clock clock = new Clock();
 		Time gameTime = new Time();
 
 		#endregion
+
+		private Grid grid;
 
 		/// <summary>
 		/// Constructor of the window
@@ -32,13 +36,12 @@ namespace Pacman
 		/// <param name="windowWidth">Width of the window</param>
 		/// <param name="title">Title of the window</param>
 		/// <param name="style">Style of the window</param>
-		public Application(uint windowHeight = 300, uint windowWidth = 300, string title = "SFML APP", Styles style = Styles.Close)
+		public Application(uint windowHeight = WINDOW_HEIGHT, uint windowWidth = WINDOW_WIDTH, string title = "Pacman", Styles style = Styles.Close)
 		{
 
 			window = new RenderWindow(new VideoMode(windowWidth, windowHeight), title, style);
 
 			//Add the keypressed function to the window
-			window.KeyPressed += window_KeyPressed;
 
 			//Add the Closed function to the window
 			window.Closed += window_Closed;
@@ -54,11 +57,14 @@ namespace Pacman
 
 			window.SetVisible(true);
 
+			Init_Game();
+
 			while (window.IsOpen)
 			{
 
 				//Call the Events
 				window.DispatchEvents();
+				KeyPressed();
 
 				//Update the game
 				Update();
@@ -76,25 +82,16 @@ namespace Pacman
 		/// <summary>
 		/// Called whenever a key is pressed
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e">The key event</param>
-		void window_KeyPressed(object sender, KeyEventArgs e)
+		void KeyPressed()
 		{
 
-			//Debug output of keyPressed
-			//Console.WriteLine(e.Code);
-
-			switch (e.Code)
+			if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
 			{
-
-				case Keyboard.Key.Escape:
-					window.Close();
-					break;
-
-				default:
-					break;
+				
+				window.Close();
 
 			}
+
 		}
 
 		/// <summary>
@@ -129,7 +126,16 @@ namespace Pacman
 
 			window.Clear();
 
+			grid.Draw(window);
+
 			window.Display();
+
+		}
+
+		private void Init_Game()
+		{
+			
+			grid = new Grid();
 
 		}
 
