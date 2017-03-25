@@ -130,7 +130,8 @@ namespace Pacman
 			if (i >= GRID_WIDTH || i < 0 || j >= GRID_HEIGHT || j < 0)
 			{
 				
-				throw new ArgumentOutOfRangeException();
+				//throw new ArgumentOutOfRangeException();
+				return PacmanElement.Empty;
 
 			}
 

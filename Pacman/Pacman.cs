@@ -11,11 +11,12 @@ namespace Pacman
 	class Pacman
 	{
 
-		public const float UPDATE_TICKRATE = 200f;
+		public const float UPDATE_TICKRATE = 0.3f;
 
-		private static RectangleShape body;
+		private static CircleShape body;
 		private Direction direction;
 		private float totalTime;
+		private Direction toMoveDirection;
 
 		private int iPos;
 		private int jPos;
@@ -23,10 +24,15 @@ namespace Pacman
 		private float iOffset;
 		private float jOffset;
 
+		public Direction ToMove
+		{
+			get { return toMoveDirection; }
+		}
+
 		static Pacman()
 		{
 			
-			body = new RectangleShape(new Vector2f(Grid.TILE_SIZE, Grid.TILE_SIZE));
+			body = new CircleShape(Grid.TILE_SIZE / 2f);
 			body.FillColor = Color.Yellow;
 
 		}
@@ -38,7 +44,8 @@ namespace Pacman
 			totalTime = 0;
 
 			jPos = 23;
-			iPos = 15;
+			iPos = 13;
+			toMoveDirection = Direction.Left;
 
 		}
 
@@ -52,7 +59,7 @@ namespace Pacman
 
 				totalTime = 0;
 
-
+				Move(ToMove, grid);
 
 			}
 			else
@@ -79,17 +86,17 @@ namespace Pacman
 			{
 					
 				case Direction.Up:
-					if (grid.GetElementAt(iPos, jPos - 1) != PacmanElement.Wall)
+					if (CanMove(Direction.Up, grid))
 						jPos--;
 					break;
 
 				case Direction.Down:
-					if (grid.GetElementAt(iPos, jPos + 1) != PacmanElement.Wall)
+					if (CanMove(Direction.Down, grid))
 						jPos++;
 					break;
 
 				case Direction.Left:
-					if (grid.GetElementAt(iPos - 1, jPos) != PacmanElement.Wall)
+					if (CanMove(Direction.Left, grid))
 					{
 						iPos--;
 						if (iPos < 0)
@@ -99,7 +106,7 @@ namespace Pacman
 					break;
 
 				case Direction.Right:
-					if (grid.GetElementAt(iPos + 1, jPos) != PacmanElement.Wall)
+					if (CanMove(Direction.Right, grid))
 					{
 						iPos++;
 						if (iPos >= Grid.GRID_WIDTH)
@@ -108,6 +115,49 @@ namespace Pacman
 					break;
 
 			}
+
+		}
+
+		private bool CanMove(Direction direction, Grid grid)
+		{
+
+			switch (direction)
+			{
+
+				case Direction.Up:
+					if (grid.GetElementAt(iPos, jPos - 1) != PacmanElement.Wall)
+						return true;
+					break;
+
+				case Direction.Down:
+					if (grid.GetElementAt(iPos, jPos + 1) != PacmanElement.Wall)
+						return true;
+					break;
+
+				case Direction.Left:
+					if (grid.GetElementAt(iPos - 1, jPos) != PacmanElement.Wall)
+						return true;
+					break;
+
+				case Direction.Right:
+					if (grid.GetElementAt(iPos + 1, jPos) != PacmanElement.Wall)
+						return true;
+					break;
+
+				default:
+					return false;
+
+			}
+
+			return false;
+
+		}
+
+		public void ChangeDirection(Direction direction, Grid grid)
+		{
+
+			if (CanMove(direction, grid))
+				toMoveDirection = direction;
 
 		}
 

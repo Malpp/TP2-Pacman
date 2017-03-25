@@ -28,6 +28,7 @@ namespace Pacman
 		#endregion
 
 		private Grid grid;
+		private Pacman pacman;
 
 		/// <summary>
 		/// Constructor of the window
@@ -91,6 +92,30 @@ namespace Pacman
 				window.Close();
 
 			}
+			if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+			{
+
+				pacman.ChangeDirection(Direction.Up, grid);
+
+			}
+			if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+			{
+
+				pacman.ChangeDirection(Direction.Left, grid);
+
+			}
+			if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+			{
+
+				pacman.ChangeDirection(Direction.Down, grid);
+
+			}
+			if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+			{
+
+				pacman.ChangeDirection(Direction.Right, grid);
+
+			}
 
 		}
 
@@ -116,6 +141,8 @@ namespace Pacman
 
 			gameTime = clock.Restart();
 
+			pacman.Update(gameTime.AsSeconds(), grid);
+
 		}
 
 		/// <summary>
@@ -127,6 +154,7 @@ namespace Pacman
 			window.Clear();
 
 			grid.Draw(window);
+			pacman.Draw(window);
 
 			window.Display();
 
@@ -136,6 +164,7 @@ namespace Pacman
 		{
 			
 			grid = new Grid();
+			pacman = new Pacman();
 
 		}
 

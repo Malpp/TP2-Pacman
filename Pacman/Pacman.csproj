@@ -78,8 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="Grid.cs" />
-    <Compile Include="PacmanElements.cs" />
+    <Compile Include="Pacman.cs" />
+    <Compile Include="PacmanElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
