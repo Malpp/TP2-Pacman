@@ -19,8 +19,8 @@ namespace Pacman
 		//The window of application
 		private RenderWindow window;
 
-		public const int WINDOW_HEIGHT = 496;
-		public const int WINDOW_WIDTH = 448;
+		public const int WINDOW_HEIGHT = 248 * Program.SCALE;
+		public const int WINDOW_WIDTH = 224 * Program.SCALE;
 		//Used to time the movement of the objects on screen
 		Clock clock = new Clock();
 		Time gameTime = new Time();

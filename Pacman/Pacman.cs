@@ -125,22 +125,22 @@ namespace Pacman
 			{
 
 				case Direction.Up:
-					if (grid.GetElementAt(iPos, jPos - 1) != PacmanElement.Wall)
+					if (grid.GetElementAt(iPos, jPos - 1) == PacmanElement.Empty)
 						return true;
 					break;
 
 				case Direction.Down:
-					if (grid.GetElementAt(iPos, jPos + 1) != PacmanElement.Wall)
+					if (grid.GetElementAt(iPos, jPos + 1) == PacmanElement.Empty)
 						return true;
 					break;
 
 				case Direction.Left:
-					if (grid.GetElementAt(iPos - 1, jPos) != PacmanElement.Wall)
+					if (grid.GetElementAt(iPos - 1, jPos) == PacmanElement.Empty)
 						return true;
 					break;
 
 				case Direction.Right:
-					if (grid.GetElementAt(iPos + 1, jPos) != PacmanElement.Wall)
+					if (grid.GetElementAt(iPos + 1, jPos) == PacmanElement.Empty)
 						return true;
 					break;
 

@@ -8,6 +8,9 @@ namespace Pacman
 {
 	class Program
 	{
+
+		public const int SCALE = 4;
+
 		static void Main(string[] args)
 		{
 
