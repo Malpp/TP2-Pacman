@@ -40,31 +40,31 @@ namespace Pacman
         /// <param name="destX"></param>
         /// <param name="destY"></param>
         /// <param name="distances"></param>
-        void CalculateMoves(Grid[,] grid, int origX, int origY, int destX, int destY, int[,] distances)
+        void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
         {
             //up
-            if (origY - 1 >= 0 && grid.GetElementAt(origY - 1, origX)) != PacmanElements.W && distances[origY - 1, origX] > distances[origY, origX] + 1)
+            if (origY - 1 >= 0 && grid.GetElementAt(origY - 1, origX) != PacmanElement.Wall && distances[origY - 1, origX] > distances[origY, origX] + 1)
             {
                 distances[origY- 1, origX] = distances[origY, origX] + 1;
                 CalculateMoves(grid, origX, origY - 1, destX, destY, distances);
             }
 
             //down
-            if (origY + 1 <= grid.GetLength(0) - 1 && grid.GetElementAt(origY + 1, origX) != PacmanElement.W && distances[origY + 1,origX] > distances[origY,origX] + 1)
+            if (origY + 1 <= Grid.GRID_HEIGHT - 1 && grid.GetElementAt(origY + 1, origX) != PacmanElement.Wall && distances[origY + 1,origX] > distances[origY,origX] + 1)
             {
                 distances[origY + 1, origX] = distances[origY, origX] + 1;
                 CalculateMoves(grid, origX, origY + 1, destX, destY, distances);
             }
 
             //left
-            if (origX - 1 >= 0 && grid.GetElementAt(origY, origX - 1)) != PacmanElements.W && distances[origY, origX - 1] > distances[origY, origX] + 1)
+            if (origX - 1 >= 0 && grid.GetElementAt(origY, origX - 1) != PacmanElement.Wall && distances[origY, origX - 1] > distances[origY, origX] + 1)
             {
                 distances[origY, origX - 1] = distances[origY, origX] + 1;
                 CalculateMoves(grid, origX - 1, origY, destX, destY, distances);
             }
 
             //right
-            if (origX + 1 >= grid.GetLength(0) && grid.GetElementAt(origY, origX + 1)) != PacmanElements.W && distances[origY, origX + 1] > distances[origY, origX] + 1)
+            if (origX + 1 >= Grid.GRID_WIDTH && grid.GetElementAt(origY, origX + 1) != PacmanElement.Wall && distances[origY, origX + 1] > distances[origY, origX] + 1)
             {
                 distances[origY, origX + 1] = distances[origY, origX] + 1;
                 CalculateMoves(grid, origX + 1, origY, destX, destY, distances);
