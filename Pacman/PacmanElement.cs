@@ -76,13 +76,21 @@ namespace Pacman
 		DCornerBR = 't',
 
 		//Corner corner
+		//bottom left
 		CCornerBL = 'u',
 		//top left
 		CCornerTL = 'v',
 		//top right
-		CCornerTR = 'w',
+		//CCornerTR = 'w',
 		//bottom right
 		CCornerBR = 'x',
+
+		//bottom left flipped
+		CCornerBLFlipped = 'U',
+		//top left flipped
+		CCornerTLFlipped = 'V',
+		//bottom right flipped
+		CCornerBRFlipped = 'X',
 
 		//Jail ends
 		//left

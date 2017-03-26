@@ -142,6 +142,7 @@ namespace Pacman
 			gameTime = clock.Restart();
 
 			pacman.Update(gameTime.AsSeconds(), grid);
+			grid.Update(gameTime.AsSeconds());
 
 		}
 

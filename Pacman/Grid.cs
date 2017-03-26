@@ -11,6 +11,7 @@ namespace Pacman
 {
 	class Grid
 	{
+		#region Variables
 
 		public const int GRID_WIDTH = 29;
 		public const int GRID_HEIGHT = 31;
@@ -40,10 +41,20 @@ namespace Pacman
 		private static readonly Texture jDoorTexture;
 		private Sprite jDoorSprite;
 
+		private static readonly Texture dotTexture;
+		private Sprite dotSprite;
+
+		private static readonly Texture pelletTexture;
+		private Sprite pelletSprite;
+
 		private PacmanElement[,] grid;
 
 		private static RectangleShape wall;
 
+		private bool shouldBlink;
+		private float totalTime;
+
+		#endregion
 		/// <summary>
 		/// Initializes the <see cref="Grid" /> class.
 		/// </summary>
@@ -61,6 +72,8 @@ namespace Pacman
 			cCornerTexture = new Texture(new Image("Assets/Art/cCorner.png"));
 			jEndTexture = new Texture(new Image("Assets/Art/jEnd.png"));
 			jDoorTexture = new Texture(new Image("Assets/Art/jdoor.png"));
+			dotTexture = new Texture(new Image("Assets/Art/pacdot.png"));
+			pelletTexture = new Texture(new Image("Assets/Art/pellet.png"));
 
 		}
 
@@ -98,6 +111,15 @@ namespace Pacman
 			jDoorSprite = new Sprite(jDoorTexture);
 			jDoorSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 
+			dotSprite = new Sprite(dotTexture);
+			dotSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+
+			pelletSprite = new Sprite(pelletTexture);
+			pelletSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+
+			shouldBlink = true;
+			totalTime = 0;
+
 		}
 
 		/// <summary>
@@ -107,7 +129,15 @@ namespace Pacman
 		public void Update(float time = 0)
 		{
 
+			totalTime += time;
 
+			if (totalTime > 0.2f)
+			{
+
+				shouldBlink = !shouldBlink;
+				totalTime = 0;
+
+			}
 
 		}
 
@@ -129,6 +159,17 @@ namespace Pacman
 						case PacmanElement.Wall:
 							wall.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
 							window.Draw(wall);
+							break;
+
+						case PacmanElement.Dot:
+							dotSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							window.Draw(dotSprite);
+							break;
+
+						case PacmanElement.Pellet:
+							pelletSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							if(shouldBlink)
+								window.Draw(pelletSprite);
 							break;
 
 						#region Small Corner
@@ -265,26 +306,57 @@ namespace Pacman
 						case PacmanElement.CCornerBL:
 							cCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
 							cCornerSprite.Rotation = 0;
+							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
 
 						case PacmanElement.CCornerTL:
 							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
 							cCornerSprite.Rotation = 90;
+							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
 
-						case PacmanElement.CCornerTR:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
-							cCornerSprite.Rotation = 180;
-							window.Draw(cCornerSprite);
-							break;
+						//case PacmanElement.CCornerTR:
+						//	cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+						//	cCornerSprite.Rotation = 180;
+						//	window.Draw(cCornerSprite);
+						//	break;
 
 						case PacmanElement.CCornerBR:
 							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
 							cCornerSprite.Rotation = 270;
+							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
+
+						case PacmanElement.CCornerBLFlipped:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							cCornerSprite.Rotation = 0;
+							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
+							window.Draw(cCornerSprite);
+							break;
+
+						case PacmanElement.CCornerTLFlipped:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							cCornerSprite.Rotation = 90;
+							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
+							window.Draw(cCornerSprite);
+							break;
+
+						//case PacmanElement.CCornerTR:
+						//	cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+						//	cCornerSprite.Rotation = 180;
+						//	window.Draw(cCornerSprite);
+						//	break;
+
+						case PacmanElement.CCornerBRFlipped:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i));
+							cCornerSprite.Rotation = 270;
+							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
+							window.Draw(cCornerSprite);
+							break;
+
 						#endregion
 
 						#region Jail End
