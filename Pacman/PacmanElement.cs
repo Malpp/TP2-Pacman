@@ -12,6 +12,7 @@ namespace Pacman
 		
 		Pacman = 'P',
 		//World
+		Jail = 'J',
 		Wall = 'W',
 		Empty = '0',
 		//Ghosts
@@ -72,7 +73,22 @@ namespace Pacman
 		//top right
 		DCornerTR = 's',
 		//bottom right
-		DCornerBR = 't'
+		DCornerBR = 't',
+
+		//Corner corner
+		CCornerBL = 'u',
+		//top left
+		CCornerTL = 'v',
+		//top right
+		CCornerTR = 'w',
+		//bottom right
+		CCornerBR = 'x',
+
+		//Jail ends
+		//left
+		JEndL = 'y',
+		//right
+		JEndR = 'z'
 
 	}
 

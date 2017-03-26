@@ -31,6 +31,15 @@ namespace Pacman
 		private static readonly Texture dCornerTexture;
 		private Sprite dCornerSprite;
 
+		private static readonly Texture cCornerTexture;
+		private Sprite cCornerSprite;
+
+		private static readonly Texture jEndTexture;
+		private Sprite jEndSprite;
+
+		private static readonly Texture jDoorTexture;
+		private Sprite jDoorSprite;
+
 		private PacmanElement[,] grid;
 
 		private static RectangleShape wall;
@@ -49,6 +58,9 @@ namespace Pacman
 			dWallTexture = new Texture(new Image("Assets/Art/dwall.png"));
 			bCornerTexture = new Texture(new Image("Assets/Art/bcorner.png"));
 			dCornerTexture = new Texture(new Image("Assets/Art/dcorner.png"));
+			cCornerTexture = new Texture(new Image("Assets/Art/cCorner.png"));
+			jEndTexture = new Texture(new Image("Assets/Art/jEnd.png"));
+			jDoorTexture = new Texture(new Image("Assets/Art/jdoor.png"));
 
 		}
 
@@ -76,6 +88,15 @@ namespace Pacman
 
 			bCornerSprite = new Sprite(bCornerTexture);
 			bCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+
+			cCornerSprite = new Sprite(cCornerTexture);
+			cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+
+			jEndSprite = new Sprite(jEndTexture);
+			jEndSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+
+			jDoorSprite = new Sprite(jDoorTexture);
+			jDoorSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 
 		}
 
@@ -239,6 +260,52 @@ namespace Pacman
 							window.Draw(dCornerSprite);
 							break;
 						#endregion
+
+						#region Corner Corner
+						case PacmanElement.CCornerBL:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							cCornerSprite.Rotation = 0;
+							window.Draw(cCornerSprite);
+							break;
+
+						case PacmanElement.CCornerTL:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							cCornerSprite.Rotation = 90;
+							window.Draw(cCornerSprite);
+							break;
+
+						case PacmanElement.CCornerTR:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							cCornerSprite.Rotation = 180;
+							window.Draw(cCornerSprite);
+							break;
+
+						case PacmanElement.CCornerBR:
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
+							cCornerSprite.Rotation = 270;
+							window.Draw(cCornerSprite);
+							break;
+						#endregion
+
+						#region Jail End
+						case PacmanElement.JEndL:
+							jEndSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							jEndSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
+							window.Draw(jEndSprite);
+							break;
+
+						case PacmanElement.JEndR:
+							jEndSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i));
+							jEndSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
+							window.Draw(jEndSprite);
+							break;
+						#endregion
+
+						//Jail door
+						case PacmanElement.Jail:
+							jDoorSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							window.Draw(jDoorSprite);
+							break;
 
 					}
 
