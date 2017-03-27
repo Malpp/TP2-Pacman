@@ -16,6 +16,7 @@ namespace Pacman
 		public const int GRID_WIDTH = 29;
 		public const int GRID_HEIGHT = 31;
 		public const int TILE_SIZE = 8 * Program.SCALE;
+		public const int DRAW_OFFSET = TILE_SIZE * 3;
 
 		private static readonly Texture sCornerTexture;
 		private Sprite sCornerSprite;
@@ -157,42 +158,42 @@ namespace Pacman
 					{
 
 						case PacmanElement.Wall:
-							wall.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							wall.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							window.Draw(wall);
 							break;
 
 						case PacmanElement.Dot:
-							dotSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							dotSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							window.Draw(dotSprite);
 							break;
 
 						case PacmanElement.Pellet:
-							pelletSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							pelletSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							if(shouldBlink)
 								window.Draw(pelletSprite);
 							break;
 
 						#region Small Corner
 						case PacmanElement.SCornerBL:
-							sCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							sCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							sCornerSprite.Rotation = 0;
 							window.Draw(sCornerSprite);
 							break;
 
 						case PacmanElement.SCornerTL:
-							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							sCornerSprite.Rotation = 90;
 							window.Draw(sCornerSprite);
 							break;
 
 						case PacmanElement.SCornerTR:
-							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j+1), TILE_SIZE * (i + 1));
+							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j+1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							sCornerSprite.Rotation = 180;
 							window.Draw(sCornerSprite);
 							break;
 
 						case PacmanElement.SCornerBR:
-							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
+							sCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							sCornerSprite.Rotation = 270;
 							window.Draw(sCornerSprite);
 							break;
@@ -200,25 +201,25 @@ namespace Pacman
 
 						#region Single Wall
 						case PacmanElement.SWallB:
-							sWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							sWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							sWallSprite.Rotation = 0;
 							window.Draw(sWallSprite);
 							break;
 
 						case PacmanElement.SWallL:
-							sWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							sWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							sWallSprite.Rotation = 90;
 							window.Draw(sWallSprite);
 							break;
 
 						case PacmanElement.SWallT:
-							sWallSprite.Position = new Vector2f(TILE_SIZE*(j + 1), TILE_SIZE * (i + 1));
+							sWallSprite.Position = new Vector2f(TILE_SIZE*(j + 1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							sWallSprite.Rotation = 180;
 							window.Draw(sWallSprite);
 							break;
 
 						case PacmanElement.SWallR:
-							sWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * (i + 1));
+							sWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							sWallSprite.Rotation = 270;
 							window.Draw(sWallSprite);
 							break;
@@ -226,25 +227,25 @@ namespace Pacman
 
 						#region Double Wall
 						case PacmanElement.DWallB:
-							dWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							dWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							dWallSprite.Rotation = 0;
 							window.Draw(dWallSprite);
 							break;
 
 						case PacmanElement.DWallL:
-							dWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							dWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							dWallSprite.Rotation = 90;
 							window.Draw(dWallSprite);
 							break;
 
 						case PacmanElement.DWallT:
-							dWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							dWallSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							dWallSprite.Rotation = 180;
 							window.Draw(dWallSprite);
 							break;
 
 						case PacmanElement.DWallR:
-							dWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * (i + 1));
+							dWallSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							dWallSprite.Rotation = 270;
 							window.Draw(dWallSprite);
 							break;
@@ -252,25 +253,25 @@ namespace Pacman
 
 						#region Big Corner
 						case PacmanElement.BCornerBL:
-							bCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							bCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							bCornerSprite.Rotation = 0;
 							window.Draw(bCornerSprite);
 							break;
 
 						case PacmanElement.BCornerTL:
-							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							bCornerSprite.Rotation = 90;
 							window.Draw(bCornerSprite);
 							break;
 
 						case PacmanElement.BCornerTR:
-							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							bCornerSprite.Rotation = 180;
 							window.Draw(bCornerSprite);
 							break;
 
 						case PacmanElement.BCornerBR:
-							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
+							bCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							bCornerSprite.Rotation = 270;
 							window.Draw(bCornerSprite);
 							break;
@@ -278,25 +279,25 @@ namespace Pacman
 
 						#region Double Corner
 						case PacmanElement.DCornerBL:
-							dCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							dCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							dCornerSprite.Rotation = 0;
 							window.Draw(dCornerSprite);
 							break;
 
 						case PacmanElement.DCornerTL:
-							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							dCornerSprite.Rotation = 90;
 							window.Draw(dCornerSprite);
 							break;
 
 						case PacmanElement.DCornerTR:
-							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							dCornerSprite.Rotation = 180;
 							window.Draw(dCornerSprite);
 							break;
 
 						case PacmanElement.DCornerBR:
-							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
+							dCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							dCornerSprite.Rotation = 270;
 							window.Draw(dCornerSprite);
 							break;
@@ -304,14 +305,14 @@ namespace Pacman
 
 						#region Corner Corner
 						case PacmanElement.CCornerBL:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							cCornerSprite.Rotation = 0;
 							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
 
 						case PacmanElement.CCornerTL:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							cCornerSprite.Rotation = 90;
 							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
@@ -324,21 +325,21 @@ namespace Pacman
 						//	break;
 
 						case PacmanElement.CCornerBR:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1));
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							cCornerSprite.Rotation = 270;
 							cCornerSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
 
 						case PacmanElement.CCornerBLFlipped:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i);
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * i + DRAW_OFFSET);
 							cCornerSprite.Rotation = 0;
 							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
 							break;
 
 						case PacmanElement.CCornerTLFlipped:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1));
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i + 1) + DRAW_OFFSET);
 							cCornerSprite.Rotation = 90;
 							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
@@ -351,7 +352,7 @@ namespace Pacman
 						//	break;
 
 						case PacmanElement.CCornerBRFlipped:
-							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i));
+							cCornerSprite.Position = new Vector2f(TILE_SIZE * (j), TILE_SIZE * (i) + DRAW_OFFSET);
 							cCornerSprite.Rotation = 270;
 							cCornerSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(cCornerSprite);
@@ -361,13 +362,13 @@ namespace Pacman
 
 						#region Jail End
 						case PacmanElement.JEndL:
-							jEndSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							jEndSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							jEndSprite.Scale = new Vector2f(TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(jEndSprite);
 							break;
 
 						case PacmanElement.JEndR:
-							jEndSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i));
+							jEndSprite.Position = new Vector2f(TILE_SIZE * (j + 1), TILE_SIZE * (i) + DRAW_OFFSET);
 							jEndSprite.Scale = new Vector2f(-TILE_SIZE / 8f, TILE_SIZE / 8f);
 							window.Draw(jEndSprite);
 							break;
@@ -375,7 +376,7 @@ namespace Pacman
 
 						//Jail door
 						case PacmanElement.Jail:
-							jDoorSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i);
+							jDoorSprite.Position = new Vector2f(TILE_SIZE * j, TILE_SIZE * i + DRAW_OFFSET);
 							window.Draw(jDoorSprite);
 							break;
 

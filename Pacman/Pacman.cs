@@ -74,7 +74,7 @@ namespace Pacman
 		public void Draw(RenderWindow window)
 		{
 			
-			body.Position = new Vector2f(iPos * Grid.TILE_SIZE + iOffset, jPos * Grid.TILE_SIZE + jOffset);
+			body.Position = new Vector2f(iPos * Grid.TILE_SIZE + iOffset, jPos * Grid.TILE_SIZE + jOffset + Grid.DRAW_OFFSET);
 			window.Draw(body);
 
 		}
