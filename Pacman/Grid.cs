@@ -127,7 +127,7 @@ namespace Pacman
 		/// Updates the grid
 		/// </summary>
 		/// <param name="time">The time elapsed</param>
-		public void Update(float time = 0)
+		public void Update(float time, Pacman pacman)
 		{
 
 			totalTime += time;
@@ -137,6 +137,13 @@ namespace Pacman
 
 				shouldBlink = !shouldBlink;
 				totalTime = 0;
+
+			}
+
+			if (grid[pacman.iPos, pacman.jPos] == PacmanElement.Dot)
+			{
+
+				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
 
 			}
 

@@ -12,17 +12,36 @@ namespace Pacman
 	{
 
 		public const float UPDATE_TICKRATE = 0.3f;
+		public const float PACSPEED = 0.15f;
 
 		private static CircleShape body;
 		private Direction direction;
 		private float totalTime;
 		private Direction toMoveDirection;
 
-		private int iPos;
-		private int jPos;
+		private int _iPos;
+		private int _jPos;
 
-		private float iOffset;
-		private float jOffset;
+		private float iSpritePos;
+		private float jSpritePos;
+
+		private float tolarence = 0.05f;
+
+		private static RectangleShape debugPos;
+
+		public int iPos
+		{
+
+			get { return Math.Max(0, Math.Min(Grid.GRID_WIDTH - 1,_iPos));}
+
+		}
+
+		public int jPos
+		{
+
+			get { return _jPos; }
+
+		}
 
 		public Direction ToMove
 		{
@@ -35,6 +54,9 @@ namespace Pacman
 			body = new CircleShape(Grid.TILE_SIZE / 2f);
 			body.FillColor = Color.Yellow;
 
+			debugPos = new RectangleShape(new Vector2f(Grid.TILE_SIZE, Grid.TILE_SIZE));
+			debugPos.FillColor = Color.Red;
+
 		}
 
 		public Pacman()
@@ -43,31 +65,33 @@ namespace Pacman
 			direction = Direction.Up;
 			totalTime = 0;
 
-			jPos = 23;
-			iPos = 13;
+			_jPos = 23;
+			_iPos = 13;
 			toMoveDirection = Direction.Left;
+
+			iSpritePos = _iPos;
+			jSpritePos = _jPos;
 
 		}
 
 		public void Update(float time, Grid grid)
 		{
 
-			totalTime += time;
+			
 
-			if (totalTime > UPDATE_TICKRATE)
-			{
+			Move(ToMove, grid);
+			
 
-				totalTime = 0;
-
-				Move(ToMove, grid);
-
-			}
 		}
 
 		public void Draw(RenderWindow window)
 		{
 			
-			body.Position = new Vector2f(iPos * Grid.TILE_SIZE + iOffset, jPos * Grid.TILE_SIZE + jOffset + Grid.DRAW_OFFSET);
+			
+			debugPos.Position = new Vector2f(_iPos * Grid.TILE_SIZE, _jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+			//window.Draw(debugPos);
+
+			body.Position = new Vector2f(iSpritePos * Grid.TILE_SIZE, jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
 			window.Draw(body);
 
 		}
@@ -77,37 +101,77 @@ namespace Pacman
 
 			switch (direction)
 			{
-					
-				case Direction.Up:
-					if (CanMove(Direction.Up, grid))
-						jPos--;
-					break;
 
-				case Direction.Down:
-					if (CanMove(Direction.Down, grid))
-						jPos++;
-					break;
+				//case Direction.Up:
+				//	if (CanMove(Direction.Up, grid))
+				//		_jPos--;
+				//	break;
+
+				//case Direction.Down:
+				//	if (CanMove(Direction.Down, grid))
+				//		_jPos++;
+				//	break;
+
+				//case Direction.Left:
+				//	if (CanMove(Direction.Left, grid))
+				//	{
+				//		_iPos--;
+				//		if (_iPos < 0)
+				//			_iPos = Grid.GRID_WIDTH - 1;
+				//	}
+
+				//	break;
+
+				//case Direction.Right:
+				//	if (CanMove(Direction.Right, grid))
+				//	{
+				//		_iPos++;
+				//		if (_iPos >= Grid.GRID_WIDTH)
+				//			_iPos = 0;
+				//	}
+				//	break;
 
 				case Direction.Left:
-					if (CanMove(Direction.Left, grid))
-					{
-						iPos--;
-						if (iPos < 0)
-							iPos = Grid.GRID_WIDTH - 1;
-					}
-
+					iSpritePos -= PACSPEED;
+					if (iSpritePos < -0.5f)
+						iSpritePos = Grid.GRID_WIDTH - 0.5f;
+					if (!CanMove(Direction.Left, grid))
+						iSpritePos = Math.Max(_iPos, iSpritePos);
 					break;
 
 				case Direction.Right:
-					if (CanMove(Direction.Right, grid))
-					{
-						iPos++;
-						if (iPos >= Grid.GRID_WIDTH)
-							iPos = 0;
-					}
+					iSpritePos += PACSPEED;
+					if (iSpritePos >= Grid.GRID_WIDTH - 1.5f)
+						iSpritePos = -0.5f;
+					if (!CanMove(Direction.Right, grid))
+						iSpritePos = Math.Min(_iPos, iSpritePos);
+					break;
+
+				case Direction.Up:
+					jSpritePos -= PACSPEED;
+					if (!CanMove(Direction.Up, grid))
+						jSpritePos = Math.Max(_jPos, jSpritePos);
+					break;
+
+				case Direction.Down:
+					jSpritePos += PACSPEED;
+						if (!CanMove(Direction.Down, grid))
+						jSpritePos = Math.Min(_jPos, jSpritePos);
 					break;
 
 			}
+
+			UpdatePos();
+
+		}
+
+		private void UpdatePos()
+		{
+
+			//Center of the Pacman sprite
+			_iPos = (int)(iSpritePos + (body.Radius / Grid.TILE_SIZE));
+
+			_jPos = (int)(jSpritePos + (body.Radius / Grid.TILE_SIZE));
 
 		}
 
@@ -118,22 +182,30 @@ namespace Pacman
 			{
 
 				case Direction.Up:
-					if (grid.GetElementAt(iPos, jPos - 1) == PacmanElement.Empty || grid.GetElementAt(iPos, jPos - 1) == PacmanElement.Dot)
+					if (grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Empty 
+						|| grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Dot
+						|| grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Down:
-					if (grid.GetElementAt(iPos, jPos + 1) == PacmanElement.Empty || grid.GetElementAt(iPos, jPos + 1) == PacmanElement.Dot)
+					if (grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Empty 
+						|| grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Dot
+						|| grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Left:
-					if (grid.GetElementAt(iPos - 1, jPos) == PacmanElement.Empty || grid.GetElementAt(iPos - 1, jPos) == PacmanElement.Dot)
+					if (grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Empty 
+						|| grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Dot
+						|| grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Right:
-					if (grid.GetElementAt(iPos + 1, jPos) == PacmanElement.Empty || grid.GetElementAt(iPos + 1, jPos) == PacmanElement.Dot)
+					if (grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Empty 
+						|| grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Dot
+						|| grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Pellet)
 						return true;
 					break;
 
@@ -146,10 +218,53 @@ namespace Pacman
 
 		}
 
+		private bool IsInBounds(Direction direction)
+		{
+
+			if (direction == Direction.Right || direction == Direction.Left)
+			{
+				for (float jPosTest = jSpritePos - tolarence; jPosTest <= jSpritePos + tolarence; jPosTest += tolarence)
+				{
+
+					if (Math.Round(jPosTest, 1) == (float) _jPos)
+					{
+
+						jSpritePos = _jPos;
+
+						return true;
+
+					}
+
+				}
+
+			}
+			else
+			{
+
+				for (float iPosTest = iSpritePos - tolarence; iPosTest <= iSpritePos + tolarence; iPosTest += tolarence)
+				{
+
+					if (Math.Round(iPosTest, 1) == (float) _iPos)
+					{
+
+						iSpritePos = _iPos;
+
+						return true;
+
+					}
+
+				}
+
+			}
+
+			return false;
+
+		}
+
 		public void ChangeDirection(Direction direction, Grid grid)
 		{
 
-			if (CanMove(direction, grid))
+			if (CanMove(direction, grid) && IsInBounds(direction))
 				toMoveDirection = direction;
 
 		}

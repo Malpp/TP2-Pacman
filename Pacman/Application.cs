@@ -46,6 +46,10 @@ namespace Pacman
 
 			window = new RenderWindow(new VideoMode(windowWidth, windowHeight), title, style);
 
+			window.SetFramerateLimit(60);
+			window.SetActive(true);
+			window.SetMouseCursorVisible(false);
+
 			//Add the keypressed function to the window
 
 			//Add the Closed function to the window
@@ -146,7 +150,7 @@ namespace Pacman
 			gameTime = clock.Restart();
 
 			pacman.Update(gameTime.AsSeconds(), grid);
-			grid.Update(gameTime.AsSeconds());
+			grid.Update(gameTime.AsSeconds(), pacman);
 
 		}
 
