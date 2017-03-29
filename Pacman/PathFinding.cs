@@ -10,11 +10,11 @@ namespace Pacman
 	{
 		//<mdumas>
 		/// <summary>
-		/// 
+		/// Initialise the grid on integers to 0
 		/// </summary>
-		/// <param name="distances"></param>
-		/// <param name="origX"></param>
-		/// <param name="origY"></param>
+		/// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+		/// <param name="origX"> ghost position in X</param>
+		/// <param name="origY"> ghost position in Y</param>
 		/// <returns></returns>
 		int[,] InitaliseMoves(int[,] distances, int origX, int origY)
 		{
@@ -31,16 +31,16 @@ namespace Pacman
 			return distances;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="grid"></param>
-		/// <param name="origX"></param>
-		/// <param name="origY"></param>
-		/// <param name="destX"></param>
-		/// <param name="destY"></param>
-		/// <param name="distances"></param>
-		void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
+        /// <summary>
+        /// Calculate the distance ( in moves ) from the ghost to the present point and sets it to the integer grid
+        /// </summary>
+        /// <param name="grid"> the game grid</param>
+        /// <param name="origX"> the point the algorithm is at in X</param>
+        /// <param name="origY"> the point the algorithm is at in Y</param>
+        /// <param name="destX"> the point where the algorithm is going next in X</param>
+        /// <param name="destY"> the point where the algorithm is going next in Y</param>
+        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+        void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
 		{
 			//up
 			if (origY - 1 >= 0 && grid.GetElementAt(origY - 1, origX) != PacmanElement.Wall &&
@@ -75,46 +75,51 @@ namespace Pacman
 			}
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="distances"></param>
-		/// <param name="targetX"></param>
-		/// <param name="targetY"></param>
-		/// <param name="origX"></param>
-		/// <param name="origY"></param>
-		/// <returns></returns>
-		//Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY)
-		//{
-		//	if (distances[targetY, targetX] == distances[origY, origX])
-		//	{
-		//		return Direction.None;
-		//	}
+        /// <summary>
+        ///  Finds the first move the ghost has to make to reach pacman
+        /// </summary>
+        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+        /// <param name="targetX"> the point where the algorithm is going next in X</param>
+        /// <param name="targetY"> the point where the algorithm is going next in Y</param>
+        /// <param name="origX"> the point the algorithm is at in X</param>
+        /// <param name="origY"> the point the algorithm is at in Y</param>
+        /// <param name="priorMove"></param>
+        /// <returns></returns>
+        Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
+        {
+        	if (distances[targetY, targetX] == 0)
+        	{
+                return priorMove;
+        	}
 
-		//	//up
-		//	else if (distances[origY - 1, origX] < distances[origY, origX])
-		//	{
-		//		return Direction.Up + FindFirstMove(distances, targetX, targetY, origX, origY - 1);
-		//	}
+        	//up
+        	else if (targetY - 1 >= 0 && distances[targetY - 1, targetY] < distances[targetY, targetX])
+        	{
+        		return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Up);
+        	}
 
-		//	//down
-		//	else if (distances[origY + 1, origX] < distances[origY, origX])
-		//	{
-		//		return Direction.Down + FindFirstMove(distances, targetX, targetY, origX, origY + 1);
-		//	}
+        	//down
+        	else if (targetY + 1 < distances.GetLength(1) && distances[targetY + 1, targetX] < distances[targetY, targetX])
+        	{
+        		return FindFirstMove(distances, targetX , targetY + 1, targetX, targetY, Direction.Down);
+        	}
 
-		//	//left
-		//	else if (distances[origY, origX - 1] < distances[origY, origX])
-		//	{
-		//		return Direction.Left + FindFirstMove(distances, targetX, targetY, origX - 1, origY);
-		//	}
+        	//left
+        	else if (targetX - 1 >= 0 && distances[targetY, targetX - 1] < distances[targetY, targetX])
+        	{
+        		return FindFirstMove(distances, targetX - 1, targetY, targetX, targetY, Direction.Left);
+        	}
 
-		//	//right
-		//	else if (distances[origY, origX + 1] < distances[origY, origX])
-		//	{
-		//		return Direction.Left + FindFirstMove(distances, targetX, targetY, origX + 1, origY);
-		//	}
-		//}
+        	//right
+        	else if (targetX + 1 < distances.GetLength(1) && distances[targetY, targetX + 1] < distances[targetY, targetX])
+        	{
+        		return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Right);
+        	}
 
-	}
+            else
+            {
+                return Direction.None;
+            }
+        }     
+    }
 }
