@@ -6,18 +6,25 @@ using System.Threading.Tasks;
 
 namespace Pacman
 {
-	class Program
+	class Score
 	{
 
-		public const int SCALE = 3;
+		public const int TOTAL_DOTS = 240;
+		public const int TOTAL_PELLET = 4;
 
-		static void Main(string[] args)
+		static Score()
 		{
+			
 
-			Application app = new Application();
-
-			app.Run();
 
 		}
+
+		public Score()
+		{
+			
+
+
+		}
+
 	}
 }
