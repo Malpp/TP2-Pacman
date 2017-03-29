@@ -16,7 +16,7 @@ namespace Pacman
 		/// <param name="origX"> ghost position in X</param>
 		/// <param name="origY"> ghost position in Y</param>
 		/// <returns></returns>
-		int[,] InitaliseMoves(int[,] distances, int origX, int origY)
+		public int[,] InitMoves(int[,] distances, int origX, int origY)
 		{
 			for (int i = 0; i < distances.GetLength(0); i++)
 			{
@@ -40,7 +40,7 @@ namespace Pacman
         /// <param name="destX"> the point where the algorithm is going next in X</param>
         /// <param name="destY"> the point where the algorithm is going next in Y</param>
         /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-        void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
+        public void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
 		{
 			//up
 			if (origY - 1 >= 0 && grid.GetElementAt(origY - 1, origX) != PacmanElement.Wall &&
@@ -83,9 +83,9 @@ namespace Pacman
         /// <param name="targetY"> the point where the algorithm is going next in Y</param>
         /// <param name="origX"> the point the algorithm is at in X</param>
         /// <param name="origY"> the point the algorithm is at in Y</param>
-        /// <param name="priorMove"></param>
+        /// <param name="priorMove"> the reverse of the move that was just used</param>
         /// <returns></returns>
-        Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
+        public Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
         {
         	if (distances[targetY, targetX] == 0)
         	{
@@ -95,25 +95,25 @@ namespace Pacman
         	//up
         	else if (targetY - 1 >= 0 && distances[targetY - 1, targetY] < distances[targetY, targetX])
         	{
-        		return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Up);
+        		return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Down);
         	}
 
         	//down
         	else if (targetY + 1 < distances.GetLength(1) && distances[targetY + 1, targetX] < distances[targetY, targetX])
         	{
-        		return FindFirstMove(distances, targetX , targetY + 1, targetX, targetY, Direction.Down);
+        		return FindFirstMove(distances, targetX , targetY + 1, targetX, targetY, Direction.Up);
         	}
 
         	//left
         	else if (targetX - 1 >= 0 && distances[targetY, targetX - 1] < distances[targetY, targetX])
         	{
-        		return FindFirstMove(distances, targetX - 1, targetY, targetX, targetY, Direction.Left);
+        		return FindFirstMove(distances, targetX - 1, targetY, targetX, targetY, Direction.Right);
         	}
 
         	//right
         	else if (targetX + 1 < distances.GetLength(1) && distances[targetY, targetX + 1] < distances[targetY, targetX])
         	{
-        		return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Right);
+        		return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Left);
         	}
 
             else

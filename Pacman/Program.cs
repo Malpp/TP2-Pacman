@@ -9,7 +9,7 @@ namespace Pacman
 	class Program
 	{
 
-		public const int SCALE = 4;
+		public const int SCALE = 3;
 
 		static void Main(string[] args)
 		{

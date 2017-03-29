@@ -29,6 +29,10 @@ namespace Pacman
 
 		private Grid grid;
 		private Pacman pacman;
+        private Blinky blinky;
+        private Inky inky;
+        private Pinky pinky;
+        private Clyde clyde;
 
 		/// <summary>
 		/// Constructor of the window
@@ -156,8 +160,12 @@ namespace Pacman
 
 			grid.Draw(window);
 			pacman.Draw(window);
+            blinky.Draw(window);
+            inky.Draw(window);
+            pinky.Draw(window);
+            clyde.Draw(window);
 
-			window.Display();
+            window.Display();
 
 		}
 
@@ -166,6 +174,10 @@ namespace Pacman
 			
 			grid = new Grid();
 			pacman = new Pacman();
+            blinky = new Blinky();
+            inky = new Inky();
+            pinky = new Pinky();
+            clyde = new Clyde();
 
 		}
 

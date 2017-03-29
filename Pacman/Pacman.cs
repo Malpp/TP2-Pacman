@@ -62,13 +62,6 @@ namespace Pacman
 				Move(ToMove, grid);
 
 			}
-			else
-			{
-
-				//iOffset = totalTime * Grid.TILE_SIZE / UPDATE_TICKRATE;
-
-			}
-
 		}
 
 		public void Draw(RenderWindow window)
