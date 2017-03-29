@@ -77,10 +77,7 @@ namespace Pacman
 		public void Update(float time, Grid grid)
 		{
 
-			
-
 			Move(ToMove, grid);
-			
 
 		}
 
