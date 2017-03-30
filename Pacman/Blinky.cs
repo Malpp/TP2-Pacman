@@ -17,7 +17,7 @@ namespace Pacman
         private int jPos;
 
         private float iOffset;
-        private float jOffset;
+         private float jOffset;
 
         static Blinky()
         {

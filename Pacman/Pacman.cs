@@ -11,19 +11,25 @@ namespace Pacman
 	class Pacman
 	{
 
+		private static readonly Texture PacmanTexture;
+
 		public const float UPDATE_TICKRATE = 0.3f;
 		public const float PACSPEED = 0.15f;
+		public const int TEXTURE_SIZE = 13;
 
 		private static CircleShape body;
 		private Direction direction;
 		private float totalTime;
 		private Direction toMoveDirection;
+		private Sprite[,] pacmanSprite;
 
 		private int _iPos;
 		private int _jPos;
 
 		private float iSpritePos;
 		private float jSpritePos;
+
+		private int currentFrame;
 
 		private float tolarence = 0.05f;
 
@@ -51,6 +57,8 @@ namespace Pacman
 		static Pacman()
 		{
 			
+			PacmanTexture = new Texture(new Image("Assets/Art/pacman.png"));
+
 			body = new CircleShape(Grid.TILE_SIZE / 2f);
 			body.FillColor = Color.Yellow;
 
@@ -67,29 +75,83 @@ namespace Pacman
 
 			_jPos = 23;
 			_iPos = 13;
-			toMoveDirection = Direction.Left;
+			toMoveDirection = Direction.Up;
 
 			iSpritePos = _iPos;
 			jSpritePos = _jPos;
+
+			currentFrame = 0;
+
+			SetUpSprites();
+
+		}
+
+		private void SetUpSprites()
+		{
+			
+			pacmanSprite = new Sprite[PacmanTexture.Size.X / TEXTURE_SIZE, PacmanTexture.Size.Y / TEXTURE_SIZE];
+
+			for (int j = 0; j < pacmanSprite.GetLength(1); j++)
+			{
+				for (int i = 0; i < pacmanSprite.GetLength(0); i++)
+				{
+					
+					pacmanSprite[i,j] = new Sprite(PacmanTexture, new IntRect(i * TEXTURE_SIZE, j * TEXTURE_SIZE, TEXTURE_SIZE, TEXTURE_SIZE));
+					pacmanSprite[i, j].Scale = new Vector2f(Grid.TILE_SIZE / 8f, Grid.TILE_SIZE / 8f);
+
+				}
+			}
 
 		}
 
 		public void Update(float time, Grid grid)
 		{
 
+			totalTime += time;
+
+			float oldiPos = iSpritePos;
+			float oldjPos = jSpritePos;
+
 			Move(ToMove, grid);
+
+			if (totalTime > 0.075f)
+			{
+
+				totalTime = 0;
+
+				if (oldiPos != iSpritePos || oldjPos != jSpritePos)
+					currentFrame++;
+				else
+					currentFrame = 0;
+
+				if (currentFrame > 2)
+				{
+					currentFrame = 0;
+				}
+
+			}
 
 		}
 
 		public void Draw(RenderWindow window)
 		{
-			
-			
+
+			if (currentFrame == 2)
+			{
+				pacmanSprite[2, 0].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f), jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+				window.Draw(pacmanSprite[2, 0]);
+			}
+			else
+			{
+				pacmanSprite[currentFrame, (int)ToMove].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f), jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+				window.Draw(pacmanSprite[currentFrame, (int)ToMove]);
+			}
+
 			debugPos.Position = new Vector2f(_iPos * Grid.TILE_SIZE, _jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
 			//window.Draw(debugPos);
 
 			body.Position = new Vector2f(iSpritePos * Grid.TILE_SIZE, jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
-			window.Draw(body);
+			//window.Draw(body);
 
 		}
 

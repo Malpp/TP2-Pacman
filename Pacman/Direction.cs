@@ -8,10 +8,10 @@ namespace Pacman
 {
 	public enum Direction
 	{
-		Up,
 		Right,
-		Down,
 		Left,
+		Up,
+		Down,
 		None
 	}
 }
