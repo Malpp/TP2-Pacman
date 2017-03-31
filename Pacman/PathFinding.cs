@@ -52,7 +52,8 @@ namespace Pacman
 			}
 
 			//down
-			if (origY + 1 <= Grid.GRID_HEIGHT - 1 && (grid.GetElementAt(origY + 1, origX) == PacmanElement.Empty || grid.GetElementAt(origY + 1, origX) == PacmanElement.Dot || grid.GetElementAt(origY + 1, origX) == PacmanElement.Pellet) &&
+			if (origY + 1 <= Grid.GRID_HEIGHT - 1 && 
+				(grid.GetElementAt(origY + 1, origX) == PacmanElement.Empty || grid.GetElementAt(origY + 1, origX) == PacmanElement.Dot || grid.GetElementAt(origY + 1, origX) == PacmanElement.Pellet) &&
 				distances[origY + 1, origX] > distances[origY, origX] + 1)
 			{
 				distances[origY + 1, origX] = distances[origY, origX] + 1;
