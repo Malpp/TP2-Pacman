@@ -476,5 +476,20 @@ namespace Pacman
 
 		}
 
+		public PacmanElement GetElementAtPacman(int i, int j)
+		{
+
+			if (i >= GRID_WIDTH || i < 0 || j >= GRID_HEIGHT || j < 0)
+			{
+
+				//throw new ArgumentOutOfRangeException();
+				return PacmanElement.Empty;
+
+			}
+
+			return grid[i, j];
+
+		}
+
 	}
 }

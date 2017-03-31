@@ -10,7 +10,6 @@ namespace Pacman
 {
     class Blinky : Ghost
     {
-        private Pacman pacman = new Pacman();
 
         private static CircleShape body;
 
@@ -29,7 +28,7 @@ namespace Pacman
             get { return jPos; }
         }
 
-        private int[,] distances = new int[Grid.GRID_HEIGHT, Grid.GRID_WIDTH];
+        private int[,] distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
         private Direction nextMove = Direction.None;
 
 
@@ -45,34 +44,34 @@ namespace Pacman
             jPos = 11;
         }
 
-        override public void Draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
             window.Draw(body);
 
         }
 
-        override public void Update(float time, Grid grid)
+        public void Update(float time, Grid grid, Pacman pacman)
         {
 	        totalTime += time;
 
             distances = PathFinding.InitMoves(distances, iPos, jPos);
             PathFinding.CalculateMoves(grid, iPos, jPos, pacman.iPos, pacman.jPos, ref distances);
-	        for (int i = 0; i < distances.GetLength(1); i++)
-	        {
-		        for (int j = 0; j < distances.GetLength(0); j++)
-		        {
-					//if(distances[j, i] != int.MaxValue)
-					//	Console.Write(distances[j,i]);
-					//else
-					//{
-					//	Console.Write("X");
-					//}
-		        }
-				//Console.WriteLine();
-	        }
-            nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
-            //Console.WriteLine(nextMove);
+			//for (int i = 0; i < distances.GetLength(1); i++)
+			//{
+			//	for (int j = 0; j < distances.GetLength(0); j++)
+			//	{
+			//		if (distances[j,i] != int.MaxValue)
+			//			Console.Write(((distances[j,i] <= 9) ? "0"+distances[j,i] : distances[j,i]+"") + " ");
+			//		else
+			//		{
+			//			Console.Write("XX ");
+			//		}
+			//	}
+			//	Console.WriteLine();
+			//}
+			nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
+            Console.WriteLine(nextMove);
 	        if (totalTime > 0.2f)
 	        {
 		        totalTime = 0;

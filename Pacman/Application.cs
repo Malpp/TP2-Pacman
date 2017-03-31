@@ -29,10 +29,7 @@ namespace Pacman
 
 		private Grid grid;
 		private Pacman pacman;
-        private Ghost blinky;
-        private Ghost inky;
-        private Ghost pinky;
-        private Ghost clyde;
+		private Ghost ghost;
 
 		/// <summary>
 		/// Constructor of the window
@@ -151,8 +148,7 @@ namespace Pacman
 
 			pacman.Update(gameTime.AsSeconds(), grid);
 			grid.Update(gameTime.AsSeconds(), pacman);
-            blinky.Update(gameTime.AsSeconds(), grid);
-            inky.Update(gameTime.AsSeconds(), grid);
+			ghost.Update(gameTime.AsSeconds(), grid, pacman);
 
 		}
 
@@ -166,10 +162,7 @@ namespace Pacman
 
 			grid.Draw(window);
 			pacman.Draw(window);
-            blinky.Draw(window);
-            inky.Draw(window);
-            pinky.Draw(window);
-            clyde.Draw(window);
+			ghost.Draw(window);
 
             window.Display();
 
@@ -180,10 +173,7 @@ namespace Pacman
 			
 			grid = new Grid();
 			pacman = new Pacman();
-            blinky = new Blinky();
-            inky = new Inky();
-            pinky = new Pinky();
-            clyde = new Clyde();
+            ghost = new Ghost();
 
 		}
 

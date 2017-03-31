@@ -35,14 +35,14 @@ namespace Pacman
             jPos = 14;
         }
 
-        override public void Draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
             window.Draw(body);
 
         }
 
-        override public void Update(float time, Grid grid)
+        public void Update(float time, Grid grid)
         {
             iDest = (blinky.IPos + pacman.iPos) / 2;
             jDest = (blinky.JPOS + pacman.jPos) / 2;

@@ -27,7 +27,7 @@ namespace Pacman
 				}
 			}
 
-			distances[origY, origX] = 0;
+			distances[origX, origY] = 0;
 
 			return distances;
 		}
@@ -36,44 +36,44 @@ namespace Pacman
         /// Calculate the distance ( in moves ) from the ghost to the present point and sets it to the integer grid
         /// </summary>
         /// <param name="grid"> the game grid</param>
-        /// <param name="origX"> the point the algorithm is at in X</param>
-        /// <param name="origY"> the point the algorithm is at in Y</param>
-        /// <param name="destX"> the point where the algorithm is going next in X</param>
-        /// <param name="destY"> the point where the algorithm is going next in Y</param>
+        /// <param name="origI"> the point the algorithm is at in X</param>
+        /// <param name="origJ"> the point the algorithm is at in Y</param>
+        /// <param name="destI"> the point where the algorithm is going next in X</param>
+        /// <param name="destJ"> the point where the algorithm is going next in Y</param>
         /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-        public static void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, ref int[,] distances)
+        public static void CalculateMoves(Grid grid, int origI, int origJ, int destI, int destJ, ref int[,] distances)
 		{
 			//up
-			if (origY - 1 >= 0 && (grid.GetElementAt(origY - 1, origX) == PacmanElement.Empty || grid.GetElementAt(origY - 1, origX) == PacmanElement.Dot || grid.GetElementAt(origY - 1, origX) == PacmanElement.Pellet) &&
-				distances[origY - 1, origX] > distances[origY, origX] + 1)
+			if (origJ - 1 >= 0 && (grid.GetElementAt(origI, origJ - 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Pellet) &&
+				distances[origI, origJ - 1] > distances[origI, origJ] + 1)
 			{
-				distances[origY - 1, origX] = distances[origY, origX] + 1;
-				CalculateMoves(grid, origX, origY - 1, destX, destY, ref distances);
+				distances[origI, origJ - 1] = distances[origI, origJ] + 1;
+				CalculateMoves(grid, origI, origJ - 1, destI, destJ, ref distances);
 			}
 
 			//down
-			if (origY + 1 <= Grid.GRID_HEIGHT - 1 && 
-				(grid.GetElementAt(origY + 1, origX) == PacmanElement.Empty || grid.GetElementAt(origY + 1, origX) == PacmanElement.Dot || grid.GetElementAt(origY + 1, origX) == PacmanElement.Pellet) &&
-				distances[origY + 1, origX] > distances[origY, origX] + 1)
+			if (origJ + 1 <= Grid.GRID_HEIGHT - 1 && 
+				(grid.GetElementAt(origI, origJ + 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Pellet) &&
+				distances[origI, origJ + 1] > distances[origI, origJ] + 1)
 			{
-				distances[origY + 1, origX] = distances[origY, origX] + 1;
-				CalculateMoves(grid, origX, origY + 1, destX, destY, ref distances);
+				distances[origI, origJ + 1] = distances[origI, origJ] + 1;
+				CalculateMoves(grid, origI, origJ + 1, destI, destJ, ref distances);
 			}
 
 			//left
-			if (origX - 1 >= 0 && (grid.GetElementAt(origY, origX - 1) == PacmanElement.Empty || grid.GetElementAt(origY, origX - 1) == PacmanElement.Dot || grid.GetElementAt(origY, origX - 1) == PacmanElement.Pellet) &&
-				distances[origY, origX - 1] > distances[origY, origX] + 1)
+			if (origI - 1 >= 0 && (grid.GetElementAt(origI - 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Pellet) &&
+				distances[origI - 1, origJ] > distances[origI, origJ] + 1)
 			{
-				distances[origY, origX - 1] = distances[origY, origX] + 1;
-				CalculateMoves(grid, origX - 1, origY, destX, destY, ref distances);
+				distances[origI - 1, origJ] = distances[origI, origJ] + 1;
+				CalculateMoves(grid, origI - 1, origJ, destI, destJ, ref distances);
 			}
 
 			//right
-			if (origX + 1 >= Grid.GRID_WIDTH && (grid.GetElementAt(origY, origX + 1) == PacmanElement.Empty || grid.GetElementAt(origY, origX + 1) == PacmanElement.Dot || grid.GetElementAt(origY, origX + 1) == PacmanElement.Pellet) &&
-				distances[origY, origX + 1] > distances[origY, origX] + 1)
+			if (origI + 1 <= Grid.GRID_WIDTH && (grid.GetElementAt(origI + 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Pellet) &&
+				distances[origI + 1, origJ] > distances[origI, origJ] + 1)
 			{
-				distances[origY, origX + 1] = distances[origY, origX] + 1;
-				CalculateMoves(grid, origX + 1, origY, destX, destY, ref distances);
+				distances[origI + 1, origJ] = distances[origI, origJ] + 1;
+				CalculateMoves(grid, origI + 1, origJ, destI, destJ, ref distances);
 			}
 		}
 
@@ -89,33 +89,38 @@ namespace Pacman
         /// <returns></returns>
         public static Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
         {
-        	if (distances[targetY, targetX] == 0)
+
+	        if (distances[origX, origY] == 0)
+	        {
+		        return Direction.None;
+	        }
+        	else if (distances[targetX, targetY] == 0)
         	{
                 return priorMove;
         	}
 
         	//up
-        	else if (targetY - 1 >= 0 && distances[targetY - 1, targetX] < distances[targetY, targetX])
+        	else if (targetY - 1 >= 0 && distances[targetX, targetY - 1] < distances[targetX, targetY])
         	{
-        		return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Down);
+        		return FindFirstMove(distances, targetX, targetY - 1, origX, origY, Direction.Down);
         	}
 
         	//down
-        	else if (targetY + 1 < distances.GetLength(0) && distances[targetY + 1, targetX] < distances[targetY, targetX])
+        	else if (targetY + 1 < distances.GetLength(1) && distances[targetX, targetY + 1] < distances[targetX, targetY])
         	{
-        		return FindFirstMove(distances, targetX , targetY + 1, targetX, targetY, Direction.Up);
+        		return FindFirstMove(distances, targetX , targetY + 1, origX, origY, Direction.Up);
         	}
 
         	//left
-        	else if (targetX - 1 >= 0 && distances[targetY, targetX - 1] < distances[targetY, targetX])
+        	else if (targetX - 1 >= 0 && distances[targetX - 1, targetY] < distances[targetX, targetY])
         	{
-        		return FindFirstMove(distances, targetX - 1, targetY, targetX, targetY, Direction.Right);
+        		return FindFirstMove(distances, targetX - 1, targetY, origX, origY, Direction.Right);
         	}
 
         	//right
-        	else if (targetX + 1 < distances.GetLength(0) && distances[targetY, targetX + 1] < distances[targetY, targetX])
+        	else if (targetX + 1 < distances.GetLength(1) && distances[targetX + 1, targetY] < distances[targetX, targetY])
         	{
-        		return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Left);
+        		return FindFirstMove(distances, targetX + 1, targetY, origX, origY, Direction.Left);
         	}
 
             else
@@ -132,11 +137,11 @@ namespace Pacman
         /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
         /// <param name="targetX"> the point where the algorithm is going next in X</param>
         /// <param name="targetY"> the point where the algorithm is going next in Y</param>
-        /// <param name="origX"> the point the algorithm is at in X</param>
-        /// <param name="origY"> the point the algorithm is at in Y</param>
+        /// <param name="origI"> the point the algorithm is at in X</param>
+        /// <param name="origJ"> the point the algorithm is at in Y</param>
         /// <param name="priorMove"> the reverse of the move that was just used</param>
         /// <returns></returns>
-        public static Direction FindFirstMoveI(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove, int blinkyX, int blinkyY)
+        public static Direction FindFirstMoveI(int[,] distances, int targetX, int targetY, int origI, int origJ, Direction priorMove, int blinkyX, int blinkyY)
         {
             if (distances[targetY, targetX] == 0)
             {
