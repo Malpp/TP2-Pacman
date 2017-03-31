@@ -44,7 +44,7 @@ namespace Pacman
             jPos = 11;
         }
 
-        override public void Draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
             window.Draw(body);
