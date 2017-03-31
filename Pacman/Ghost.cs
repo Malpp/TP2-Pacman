@@ -24,6 +24,11 @@ namespace Pacman
 
         public Direction direction = Direction.Down;
 
+        virtual public void Draw(RenderWindow window)
+        {
+
+        }
+
         virtual public void Update(float time, Grid grid)
         {
 

@@ -29,10 +29,10 @@ namespace Pacman
 
 		private Grid grid;
 		private Pacman pacman;
-        private Blinky blinky;
-        private Inky inky;
-        private Pinky pinky;
-        private Clyde clyde;
+        private Ghost blinky;
+        private Ghost inky;
+        private Ghost pinky;
+        private Ghost clyde;
 
 		/// <summary>
 		/// Constructor of the window

@@ -16,9 +16,6 @@ namespace Pacman
         private int iPos;
         private int jPos;
 
-        private float iOffset;
-        private float jOffset;
-
         static Clyde()
         {
             body = new CircleShape(Grid.TILE_SIZE / 2f);
@@ -31,7 +28,7 @@ namespace Pacman
             jPos = 14;
         }
 
-        public void Draw(RenderWindow window)
+        override public void Draw(RenderWindow window)
         {
 
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE + iOffset, jPos * Grid.TILE_SIZE + jOffset + Grid.DRAW_OFFSET);
