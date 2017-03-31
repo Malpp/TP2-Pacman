@@ -55,6 +55,8 @@ namespace Pacman
 		private bool shouldBlink;
 		private float totalTime;
 		private Score score;
+        public bool isPelletActive;
+        private float pelletTime;
 
 		#endregion
 		/// <summary>
@@ -133,6 +135,7 @@ namespace Pacman
 		{
 
 			totalTime += time;
+            pelletTime += time;
 
 			if (totalTime > 0.2f)
 			{
@@ -154,8 +157,15 @@ namespace Pacman
 
 				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
 				score.EatPellet();
-
+                isPelletActive = true;
 			}
+
+            if (isPelletActive && pelletTime > 10f)
+            {
+                
+                isPelletActive = false;
+                pelletTime = 0;
+            }
 
 		}
 

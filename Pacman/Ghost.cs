@@ -13,7 +13,7 @@ namespace Pacman
         /// <summary>
         /// Indicates the state ghosts are in.
         /// </summary>
-        public GhostState state = GhostState.Chase;
+        public GhostState state;
 
         public const float UPDATE_TICKRATE = 0.3f;
 
@@ -23,6 +23,11 @@ namespace Pacman
 		private float totalTime;
 
         public Direction direction = Direction.Down;
+
+        public Ghost()
+        {
+            state = GhostState.Chase;
+        }
 
         virtual public void Draw(RenderWindow window)
         {
