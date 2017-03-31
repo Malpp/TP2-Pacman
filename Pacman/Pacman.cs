@@ -241,30 +241,30 @@ namespace Pacman
 			{
 
 				case Direction.Up:
-					if (grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Empty 
-						|| grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Dot
-						|| grid.GetElementAt((int)_iPos, (int)_jPos - 1) == PacmanElement.Pellet)
+					if (grid.GetElementAtPacman((int)_iPos, (int)_jPos - 1) == PacmanElement.Empty 
+						|| grid.GetElementAtPacman((int)_iPos, (int)_jPos - 1) == PacmanElement.Dot
+						|| grid.GetElementAtPacman((int)_iPos, (int)_jPos - 1) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Down:
-					if (grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Empty 
-						|| grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Dot
-						|| grid.GetElementAt((int)_iPos, (int)_jPos + 1) == PacmanElement.Pellet)
+					if (grid.GetElementAtPacman((int)_iPos, (int)_jPos + 1) == PacmanElement.Empty 
+						|| grid.GetElementAtPacman((int)_iPos, (int)_jPos + 1) == PacmanElement.Dot
+						|| grid.GetElementAtPacman((int)_iPos, (int)_jPos + 1) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Left:
-					if (grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Empty 
-						|| grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Dot
-						|| grid.GetElementAt((int)_iPos - 1, (int)_jPos) == PacmanElement.Pellet)
+					if (grid.GetElementAtPacman((int)_iPos - 1, (int)_jPos) == PacmanElement.Empty 
+						|| grid.GetElementAtPacman((int)_iPos - 1, (int)_jPos) == PacmanElement.Dot
+						|| grid.GetElementAtPacman((int)_iPos - 1, (int)_jPos) == PacmanElement.Pellet)
 						return true;
 					break;
 
 				case Direction.Right:
-					if (grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Empty 
-						|| grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Dot
-						|| grid.GetElementAt((int)_iPos + 1, (int)_jPos) == PacmanElement.Pellet)
+					if (grid.GetElementAtPacman((int)_iPos + 1, (int)_jPos) == PacmanElement.Empty 
+						|| grid.GetElementAtPacman((int)_iPos + 1, (int)_jPos) == PacmanElement.Dot
+						|| grid.GetElementAtPacman((int)_iPos + 1, (int)_jPos) == PacmanElement.Pellet)
 						return true;
 					break;
 

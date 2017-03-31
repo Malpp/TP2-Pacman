@@ -42,7 +42,7 @@ namespace Pacman
 
         }
 
-        override public void Update(float time, Grid grid)
+        public void Update(float time, Grid grid)
         {
             iDest = (blinky.IPos + pacman.iPos) / 2;
             jDest = (blinky.JPOS + pacman.jPos) / 2;
