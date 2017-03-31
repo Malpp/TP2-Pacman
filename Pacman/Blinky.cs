@@ -17,6 +17,8 @@ namespace Pacman
         private int iPos;
         private int jPos;
 
+	    private float totalTime;
+
         public int IPos
         {
             get { return iPos; }
@@ -52,29 +54,48 @@ namespace Pacman
 
         override public void Update(float time, Grid grid)
         {
+	        totalTime += time;
+
             distances = PathFinding.InitMoves(distances, iPos, jPos);
-            PathFinding.CalculateMoves(grid, iPos, jPos, pacman.iPos, pacman.jPos, distances);
+            PathFinding.CalculateMoves(grid, iPos, jPos, pacman.iPos, pacman.jPos, ref distances);
+	        for (int i = 0; i < distances.GetLength(1); i++)
+	        {
+		        for (int j = 0; j < distances.GetLength(0); j++)
+		        {
+					//if(distances[j, i] != int.MaxValue)
+					//	Console.Write(distances[j,i]);
+					//else
+					//{
+					//	Console.Write("X");
+					//}
+		        }
+				//Console.WriteLine();
+	        }
             nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
             Console.WriteLine(nextMove);
-            switch (nextMove)
-            {
-                case Direction.Down:
-                    iPos++;
-                    break;
+	        if (totalTime > 0.2f)
+	        {
+		        totalTime = 0;
+		        switch (nextMove)
+		        {
+			        case Direction.Down:
+				        jPos++;
+				        break;
 
-                case Direction.Left:
-                    jPos--;
-                    break;
+			        case Direction.Left:
+				        iPos--;
+				        break;
 
-                case Direction.Right:
-                    jPos++;
-                    break;
+			        case Direction.Right:
+				        iPos++;
+				        break;
 
-                case Direction.Up:
-                    iPos++;
-                    break;
+			        case Direction.Up:
+				        jPos++;
+				        break;
 
-            }
+		        }
+	        }
         }
     }
 }

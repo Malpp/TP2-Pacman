@@ -20,10 +20,15 @@ namespace Pacman
         private int iPos;
         private int jPos;
 
+		private float totalTime;
+
         public Direction direction = Direction.Down;
 
         virtual public void Update(float time, Grid grid)
         {
+
+	        totalTime += time;
+
             if (state == GhostState.Scatter)
             {
 
@@ -37,24 +42,28 @@ namespace Pacman
             //Chase
             else
             {
-                switch (direction)
-                {
-                    case Direction.Down:
-                        iPos++;
-                        break;
+	            if (totalTime > 0.2f)
+	            {
+		            totalTime = 0;
+		            switch (direction)
+		            {
+			            case Direction.Down:
+				            iPos++;
+				            break;
 
-                    case Direction.Left:
-                        jPos--;
-                        break;
+			            case Direction.Left:
+				            jPos--;
+				            break;
 
-                    case Direction.Right:
-                        jPos++;
-                        break;
+			            case Direction.Right:
+				            jPos++;
+				            break;
 
-                    case Direction.Up:
-                        iPos++;
-                        break;
-                }
+			            case Direction.Up:
+				            iPos++;
+				            break;
+		            }
+	            }
             }
         }
     }

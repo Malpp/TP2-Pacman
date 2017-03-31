@@ -47,7 +47,7 @@ namespace Pacman
             iDest = (blinky.IPos + pacman.iPos) / 2;
             jDest = (blinky.JPOS + pacman.jPos) / 2;
             distances = PathFinding.InitMoves(distances, iPos, iPos);
-            PathFinding.CalculateMoves(grid, iPos, jPos, iDest, jDest, distances);
+            PathFinding.CalculateMoves(grid, iPos, jPos, iDest, jDest, ref distances);
             nextMove = PathFinding.FindFirstMove(distances, iPos, jPos, iDest, jDest, nextMove);
             switch (nextMove)
             {
