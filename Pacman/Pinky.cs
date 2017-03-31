@@ -31,12 +31,14 @@ namespace Pacman
             jPos = 14;
         }
 
-        override public void Draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
 
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE + iOffset, jPos * Grid.TILE_SIZE + jOffset + Grid.DRAW_OFFSET);
             window.Draw(body);
 
         }
+
+
     }
 }

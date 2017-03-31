@@ -6,27 +6,28 @@ using System.Threading.Tasks;
 
 namespace Pacman
 {
-	class PathFinding
+	static class PathFinding
 	{
-		//<mdumas>
-		/// <summary>
-		/// Initialise the grid on integers to 0
-		/// </summary>
-		/// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-		/// <param name="origX"> ghost position in X</param>
-		/// <param name="origY"> ghost position in Y</param>
-		/// <returns></returns>
-		public int[,] InitMoves(int[,] distances, int origX, int origY)
+        //<mdumas>
+
+        /// <summary>
+        /// Initialise the grid of integers to infinite and the starting point to 0
+        /// </summary>
+        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+        /// <param name="origX"> ghost position in X</param>
+        /// <param name="origY"> ghost position in Y</param>
+        /// <returns></returns>
+        public static int[,] InitMoves(int[,] distances, int origX, int origY)
 		{
 			for (int i = 0; i < distances.GetLength(0); i++)
 			{
-				for (int j = 0; i < distances.GetLength(1); i++)
+				for (int j = 0; j < distances.GetLength(1); j++)
 				{
 					distances[i, j] = int.MaxValue;
 				}
 			}
 
-			distances[origX, origY] = 0;
+			distances[origY, origX] = 0;
 
 			return distances;
 		}
@@ -40,7 +41,7 @@ namespace Pacman
         /// <param name="destX"> the point where the algorithm is going next in X</param>
         /// <param name="destY"> the point where the algorithm is going next in Y</param>
         /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-        public void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
+        public static void CalculateMoves(Grid grid, int origX, int origY, int destX, int destY, int[,] distances)
 		{
 			//up
 			if (origY - 1 >= 0 && grid.GetElementAt(origY - 1, origX) != PacmanElement.Wall &&
@@ -85,7 +86,7 @@ namespace Pacman
         /// <param name="origY"> the point the algorithm is at in Y</param>
         /// <param name="priorMove"> the reverse of the move that was just used</param>
         /// <returns></returns>
-        public Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
+        public static Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
         {
         	if (distances[targetY, targetX] == 0)
         	{
@@ -93,13 +94,13 @@ namespace Pacman
         	}
 
         	//up
-        	else if (targetY - 1 >= 0 && distances[targetY - 1, targetY] < distances[targetY, targetX])
+        	else if (targetY - 1 >= 0 && distances[targetY - 1, targetX] < distances[targetY, targetX])
         	{
         		return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Down);
         	}
 
         	//down
-        	else if (targetY + 1 < distances.GetLength(1) && distances[targetY + 1, targetX] < distances[targetY, targetX])
+        	else if (targetY + 1 < distances.GetLength(0) && distances[targetY + 1, targetX] < distances[targetY, targetX])
         	{
         		return FindFirstMove(distances, targetX , targetY + 1, targetX, targetY, Direction.Up);
         	}
@@ -111,7 +112,7 @@ namespace Pacman
         	}
 
         	//right
-        	else if (targetX + 1 < distances.GetLength(1) && distances[targetY, targetX + 1] < distances[targetY, targetX])
+        	else if (targetX + 1 < distances.GetLength(0) && distances[targetY, targetX + 1] < distances[targetY, targetX])
         	{
         		return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Left);
         	}
@@ -120,6 +121,63 @@ namespace Pacman
             {
                 return Direction.None;
             }
-        }     
+        }
+
+       /* #region Inky
+
+        /// <summary>
+        ///  Finds the first move the ghost has to make to reach pacman
+        /// </summary>
+        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+        /// <param name="targetX"> the point where the algorithm is going next in X</param>
+        /// <param name="targetY"> the point where the algorithm is going next in Y</param>
+        /// <param name="origX"> the point the algorithm is at in X</param>
+        /// <param name="origY"> the point the algorithm is at in Y</param>
+        /// <param name="priorMove"> the reverse of the move that was just used</param>
+        /// <returns></returns>
+        public static Direction FindFirstMoveI(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove, int blinkyX, int blinkyY)
+        {
+            if (distances[targetY, targetX] == 0)
+            {
+                return priorMove;
+            }
+
+            //up
+            else if (targetY - 1 >= 0 && distances[targetY - 1, targetY] < distances[targetY, targetX])
+            {
+                return FindFirstMove(distances, targetX, targetY - 1, targetX, targetY, Direction.Down);
+            }
+
+            //down
+            else if (targetY + 1 < distances.GetLength(1) && distances[targetY + 1, targetX] < distances[targetY, targetX])
+            {
+                return FindFirstMove(distances, targetX, targetY + 1, targetX, targetY, Direction.Up);
+            }
+
+            //left
+            else if (targetX - 1 >= 0 && distances[targetY, targetX - 1] < distances[targetY, targetX])
+            {
+                return FindFirstMove(distances, targetX - 1, targetY, targetX, targetY, Direction.Right);
+            }
+
+            //right
+            else if (targetX + 1 < distances.GetLength(1) && distances[targetY, targetX + 1] < distances[targetY, targetX])
+            {
+                return FindFirstMove(distances, targetX + 1, targetY, targetX, targetY, Direction.Left);
+            }
+
+            else
+            {
+                return Direction.None;
+            }
+        }
+
+            #endregion
+
+            #region Pinky
+            #endregion
+
+            #region Clyde
+            #endregion*/
     }
 }

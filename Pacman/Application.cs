@@ -151,6 +151,8 @@ namespace Pacman
 
 			pacman.Update(gameTime.AsSeconds(), grid);
 			grid.Update(gameTime.AsSeconds(), pacman);
+            blinky.Update(gameTime.AsSeconds(), grid);
+            inky.Update(gameTime.AsSeconds(), grid);
 
 		}
 
