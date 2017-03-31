@@ -54,6 +54,7 @@ namespace Pacman
 
 		private bool shouldBlink;
 		private float totalTime;
+		private Score score;
 
 		#endregion
 		/// <summary>
@@ -120,6 +121,7 @@ namespace Pacman
 
 			shouldBlink = true;
 			totalTime = 0;
+			score = new Score();
 
 		}
 
@@ -144,6 +146,14 @@ namespace Pacman
 			{
 
 				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
+				score.EatDot();
+
+			}
+			if (grid[pacman.iPos, pacman.jPos] == PacmanElement.Pellet)
+			{
+
+				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
+				score.EatPellet();
 
 			}
 
@@ -155,6 +165,8 @@ namespace Pacman
 		/// <param name="window">The window.</param>
 		public void Draw(RenderWindow window)
 		{
+
+			score.Draw(window);
 
 			for (int i = 0; i < GRID_HEIGHT; i++)
 			{
@@ -446,7 +458,7 @@ namespace Pacman
 			{
 				
 				//throw new ArgumentOutOfRangeException();
-				return PacmanElement.Empty;
+				return PacmanElement.Wall;
 
 			}
 

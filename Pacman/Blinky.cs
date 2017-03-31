@@ -72,7 +72,7 @@ namespace Pacman
 				//Console.WriteLine();
 	        }
             nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
-            Console.WriteLine(nextMove);
+            //Console.WriteLine(nextMove);
 	        if (totalTime > 0.2f)
 	        {
 		        totalTime = 0;
