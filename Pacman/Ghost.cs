@@ -43,6 +43,7 @@ namespace Pacman
 			iPos = 14;
 			jPos = 11;
 			nextMove = Direction.None;
+			GotPacman = false;
 
 		}
 

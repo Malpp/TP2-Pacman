@@ -30,6 +30,12 @@ namespace Pacman
 		private Grid grid;
 		private Pacman pacman;
 		private Ghost ghost;
+		private GameState gameState;
+		private Text readyText;
+		private float readyTime;
+		private Text gameText;
+		private Text overText;
+		private float gameOverTime;
 
 		/// <summary>
 		/// Constructor of the window
@@ -51,6 +57,18 @@ namespace Pacman
 
 			//Add the Closed function to the window
 			window.Closed += window_Closed;
+
+			readyText = new Text("READY!", Score.textFont, Grid.TILE_SIZE);
+			readyText.Position = new Vector2f(Grid.TILE_SIZE * 11, Grid.TILE_SIZE * 20);
+			readyText.Color = Color.Yellow;
+
+			gameText = new Text("GAME", Score.textFont, Grid.TILE_SIZE);
+			gameText.Position = new Vector2f(Grid.TILE_SIZE * 9, Grid.TILE_SIZE * 20);
+			gameText.Color = Color.Red;
+
+			overText = new Text("OVER", Score.textFont, Grid.TILE_SIZE);
+			overText.Position = new Vector2f(Grid.TILE_SIZE * 15, Grid.TILE_SIZE * 20);
+			overText.Color = new Color(255,130,50);
 
 		}
 
@@ -90,35 +108,38 @@ namespace Pacman
 		/// </summary>
 		void KeyPressed()
 		{
+			if (gameState == GameState.Playing)
+			{
+				if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+				{
+
+					pacman.ChangeDirection(Direction.Up, grid);
+
+				}
+				else if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+				{
+
+					pacman.ChangeDirection(Direction.Left, grid);
+
+				}
+				else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+				{
+
+					pacman.ChangeDirection(Direction.Down, grid);
+
+				}
+				else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+				{
+
+					pacman.ChangeDirection(Direction.Right, grid);
+
+				}
+			}
 
 			if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
 			{
-				
+
 				window.Close();
-
-			}
-			if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-			{
-
-				pacman.ChangeDirection(Direction.Up, grid);
-
-			}
-			if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-			{
-
-				pacman.ChangeDirection(Direction.Left, grid);
-
-			}
-			if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-			{
-
-				pacman.ChangeDirection(Direction.Down, grid);
-
-			}
-			if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-			{
-
-				pacman.ChangeDirection(Direction.Right, grid);
 
 			}
 
@@ -146,9 +167,37 @@ namespace Pacman
 
 			gameTime = clock.Restart();
 
-			pacman.Update(gameTime.AsSeconds(), grid);
-			grid.Update(gameTime.AsSeconds(), pacman);
-			ghost.Update(gameTime.AsSeconds(), grid, pacman);
+			if (gameState == GameState.Ready)
+			{
+				readyTime += gameTime.AsSeconds();
+
+				if(readyTime > 2f)
+					gameState = GameState.Playing;
+
+			}
+			else if (gameState == GameState.Playing)
+			{
+				pacman.Update(gameTime.AsSeconds(), grid);
+				grid.Update(gameTime.AsSeconds(), pacman);
+				ghost.Update(gameTime.AsSeconds(), grid, pacman);
+
+				if (pacman.IsDead)
+					gameState = GameState.End;
+			}
+			else
+			{
+
+				grid.Update(gameTime.AsSeconds(), pacman);
+
+				gameOverTime += gameTime.AsSeconds();
+
+				if (gameOverTime > 2f)
+				{
+					Init_Game();
+				}
+
+			}
+
 
 		}
 
@@ -159,6 +208,15 @@ namespace Pacman
 		{
 
 			window.Clear();
+
+			if (gameState == GameState.Ready)
+				window.Draw(readyText);
+
+			if (gameState == GameState.End)
+			{
+				window.Draw(gameText);
+				window.Draw(overText);
+			}
 
 			grid.Draw(window);
 			pacman.Draw(window);
@@ -174,6 +232,9 @@ namespace Pacman
 			grid = new Grid();
 			pacman = new Pacman();
             ghost = new Ghost();
+			gameState = GameState.Ready;
+			readyTime = 0;
+			gameOverTime = 0;
 
 		}
 

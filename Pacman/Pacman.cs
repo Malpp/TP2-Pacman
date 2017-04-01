@@ -52,6 +52,11 @@ namespace Pacman
 			get { return toMoveDirection; }
 		}
 
+		public bool IsDead
+		{
+			get { return pacmanState == PacmanState.Dead; }
+		}
+
 		static Pacman()
 		{
 			
@@ -73,7 +78,7 @@ namespace Pacman
 
 			_jPos = 23;
 			_iPos = 13;
-			toMoveDirection = Direction.Up;
+			toMoveDirection = Direction.Left;
 
 			iSpritePos = _iPos;
 			jSpritePos = _jPos;
@@ -196,26 +201,6 @@ namespace Pacman
 					new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
 						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
 				window.Draw(pacmanSprite[currentFrame + 2, 0]);
-
-			}
-			else
-			{
-
-				if (totalTime > 1f)
-				{
-					pacmanSprite[2, 0].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
-						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
-					window.Draw(pacmanSprite[2, 0]);
-				}
-				else
-				{
-
-					pacmanSprite[currentFrame + 2, 0].Position =
-					new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
-						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
-					window.Draw(pacmanSprite[13, 0]);
-
-				}
 
 			}
 

@@ -81,6 +81,7 @@
     <Compile Include="Blinky.cs" />
     <Compile Include="Clyde.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="GhostState.cs" />
     <Compile Include="Grid.cs" />
