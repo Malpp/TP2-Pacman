@@ -87,6 +87,7 @@
     <Compile Include="Inky.cs" />
     <Compile Include="Pacman.cs" />
     <Compile Include="PacmanElement.cs" />
+    <Compile Include="PacmanState.cs" />
     <Compile Include="PathFinding.cs" />
     <Compile Include="Pinky.cs" />
     <Compile Include="Program.cs" />

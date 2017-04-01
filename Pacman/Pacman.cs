@@ -22,18 +22,16 @@ namespace Pacman
 		private float totalTime;
 		private Direction toMoveDirection;
 		private Sprite[,] pacmanSprite;
-
 		private int _iPos;
 		private int _jPos;
-
 		private float iSpritePos;
 		private float jSpritePos;
-
+		private int frameTick = 1;
 		private int currentFrame;
-
 		private float tolarence = 0.05f;
-
 		private static RectangleShape debugPos;
+		private PacmanState pacmanState;
+		private PacmanState oldPacmanState;
 
 		public int iPos
 		{
@@ -84,6 +82,9 @@ namespace Pacman
 
 			SetUpSprites();
 
+			pacmanState = PacmanState.Alive;
+			oldPacmanState = pacmanState;
+
 		}
 
 		private void SetUpSprites()
@@ -107,27 +108,64 @@ namespace Pacman
 		public void Update(float time, Grid grid)
 		{
 
+			if (oldPacmanState != pacmanState)
+			{
+				currentFrame = 0;
+				totalTime = 0;
+			}
+
+			oldPacmanState = pacmanState;
+
 			totalTime += time;
 
-			float oldiPos = iSpritePos;
-			float oldjPos = jSpritePos;
-
-			Move(ToMove, grid);
-
-			if (totalTime > 0.075f)
+			if (pacmanState == PacmanState.Alive)
 			{
 
-				totalTime = 0;
+				float oldiPos = iSpritePos;
+				float oldjPos = jSpritePos;
 
-				if (oldiPos != iSpritePos || oldjPos != jSpritePos)
-					currentFrame++;
-				else
-					currentFrame = 0;
+				Move(ToMove, grid);
 
-				if (currentFrame > 2)
+				if (totalTime > 0.04f)
 				{
-					currentFrame = 0;
+
+					totalTime = 0;
+
+					if (oldiPos != iSpritePos || oldjPos != jSpritePos)
+						currentFrame += frameTick;
+					else
+						currentFrame = 0;
+
+					if (currentFrame > 2 || currentFrame < 0)
+					{
+						currentFrame = 1;
+						frameTick = -frameTick;
+					}
+
 				}
+
+			}
+			else if (pacmanState == PacmanState.Dieing)
+			{
+
+				if (totalTime > 0.1f)
+				{
+
+					totalTime = 0;
+
+					currentFrame++;
+
+					if (currentFrame > 11)
+					{
+						currentFrame--;
+						pacmanState = PacmanState.Dead;
+					}
+
+				}
+
+			}
+			else
+			{
 
 			}
 
@@ -135,22 +173,56 @@ namespace Pacman
 
 		public void Draw(RenderWindow window)
 		{
-
-			if (currentFrame == 2)
+			if (pacmanState == PacmanState.Alive)
 			{
-				pacmanSprite[2, 0].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f), jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
-				window.Draw(pacmanSprite[2, 0]);
+				if (currentFrame == 2)
+				{
+					pacmanSprite[2, 0].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
+						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+					window.Draw(pacmanSprite[2, 0]);
+				}
+				else
+				{
+					pacmanSprite[currentFrame, (int) ToMove].Position =
+						new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
+							jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+					window.Draw(pacmanSprite[currentFrame, (int) ToMove]);
+				}
+			}
+			else if (pacmanState == PacmanState.Dieing)
+			{
+
+				pacmanSprite[currentFrame + 2, 0].Position =
+					new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
+						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+				window.Draw(pacmanSprite[currentFrame + 2, 0]);
+
 			}
 			else
 			{
-				pacmanSprite[currentFrame, (int)ToMove].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f), jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
-				window.Draw(pacmanSprite[currentFrame, (int)ToMove]);
+
+				if (totalTime > 1f)
+				{
+					pacmanSprite[2, 0].Position = new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
+						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+					window.Draw(pacmanSprite[2, 0]);
+				}
+				else
+				{
+
+					pacmanSprite[currentFrame + 2, 0].Position =
+					new Vector2f(iSpritePos * Grid.TILE_SIZE - (Grid.TILE_SIZE * 0.3f),
+						jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET - (Grid.TILE_SIZE * 0.3f));
+					window.Draw(pacmanSprite[13, 0]);
+
+				}
+
 			}
 
-			debugPos.Position = new Vector2f(_iPos * Grid.TILE_SIZE, _jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+			//debugPos.Position = new Vector2f(_iPos * Grid.TILE_SIZE, _jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
 			//window.Draw(debugPos);
 
-			body.Position = new Vector2f(iSpritePos * Grid.TILE_SIZE, jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+			//body.Position = new Vector2f(iSpritePos * Grid.TILE_SIZE, jSpritePos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
 			//window.Draw(body);
 
 		}
@@ -325,6 +397,13 @@ namespace Pacman
 
 			if (CanMove(direction, grid) && IsInBounds(direction))
 				toMoveDirection = direction;
+
+		}
+
+		public void Caught()
+		{
+			
+			pacmanState = PacmanState.Dieing;
 
 		}
 

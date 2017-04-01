@@ -16,6 +16,8 @@ namespace Pacman
 		public GhostState state = GhostState.Chase;
 		private static CircleShape body;
 
+		private static bool GotPacman;
+
 		public const float UPDATE_TICKRATE = 0.3f;
 
 		private int iPos;
@@ -31,6 +33,7 @@ namespace Pacman
 		{
 			body = new CircleShape(Grid.TILE_SIZE / 2f);
 			body.FillColor = Color.Red;
+			GotPacman = false;
 		}
 
 		public Ghost()
@@ -45,9 +48,11 @@ namespace Pacman
 
 		public void Draw(RenderWindow window)
 		{
-
-			body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
-			window.Draw(body);
+			if (!GotPacman)
+			{
+				body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+				window.Draw(body);
+			}
 
 		}
 
@@ -95,6 +100,14 @@ namespace Pacman
 						break;
 
 				}
+			}
+
+			if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
+			{
+
+				GotPacman = true;
+				pacman.Caught();
+
 			}
 
 		}
