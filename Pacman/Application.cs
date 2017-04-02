@@ -29,7 +29,10 @@ namespace Pacman
 
 		private Grid grid;
 		private Pacman pacman;
-		private Ghost ghost;
+		private Ghost blinky;
+        private Ghost inky;
+        private Ghost pinky;
+        private Ghost clyde;
 		private GameState gameState;
 		private Text readyText;
 		private float readyTime;
@@ -175,9 +178,12 @@ namespace Pacman
 			{
 				pacman.Update(gameTime.AsSeconds(), grid);
 				grid.Update(gameTime.AsSeconds(), pacman);
-				ghost.Update(gameTime.AsSeconds(), grid, pacman);
+				blinky.Update(gameTime.AsSeconds(), grid, pacman);
+                inky.Update(gameTime.AsSeconds(), grid, pacman);
+                pinky.Update(gameTime.AsSeconds(), grid, pacman);
+                clyde.Update(gameTime.AsSeconds(), grid, pacman);
 
-				if (pacman.IsDead)
+                if (pacman.IsDead)
 				{
 					Score.LostLife();
 					if (Score.GameOver)
@@ -240,7 +246,10 @@ namespace Pacman
 
 			grid.Draw(window);
 			pacman.Draw(window);
-			ghost.Draw(window);
+			blinky.Draw(window);
+            inky.Draw(window);
+            pinky.Draw(window);
+            clyde.Draw(window);
 
             window.Display();
 
@@ -251,7 +260,10 @@ namespace Pacman
 			
 			grid = new Grid();
 			pacman = new Pacman();
-            ghost = new Ghost();
+            blinky = new Ghost();
+            inky = new Ghost();
+            pinky = new Ghost();
+            clyde = new Ghost();
 			gameState = GameState.Ready;
 			readyTime = 0;
 			gameOverTime = 0;
