@@ -45,98 +45,92 @@ namespace Pacman
             jPos = 13;
             nextMove = Direction.None;
 
-
-            if (!GotPacman)
-            {
-                body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
-                Window.Draw(body);
-            }
-
-            body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
-            window.Draw(body);
-
         }
 
-        public void Update(float time, Grid grid, Pacman pacman)
-        {
+	    public void Draw(RenderWindow window)
+	    {
+			if (!GotPacman)
+			{
+				body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+				window.Draw(body);
+			}
+		}
 
-            totalTime += time;
-            if (grid.IsPelletActive)
-            {
-                state = GhostState.Frightened;
+	    public void Update(float time, Grid grid, Pacman pacman)
+	    {
+
+		    totalTime += time;
+		    if (grid.IsPelletActive)
+		    {
+			    state = GhostState.Frightened;
+		    }
+
+		    distances = PathFinding.InitMoves(distances, iPos, jPos);
+		    PathFinding.CalculateMoves(grid, iPos, jPos, pacman.iPos, pacman.jPos, ref distances);
+		    //for (int i = 0; i < distances.GetLength(1); i++)
+		    //{
+		    //	for (int j = 0; j < distances.GetLength(0); j++)
+		    //	{
+		    //		if (distances[j, i] != int.MaxValue)
+		    //			Console.Write(((distances[j, i] <= 9) ? "0" + distances[j, i] : distances[j, i] + "") + " ");
+		    //		else
+		    //		{
+		    //			Console.Write("XX ");
+		    //		}
+		    //	}
+		    //	Console.WriteLine();
+		    //}
+		    nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
+
+		    if (state == GhostState.Frightened)
+		    {
+
+		    }
+
+		    else if (state == GhostState.Scatter)
+		    {
+
+			    if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
+			    {
+
+				    GotPacman = true;
+				    pacman.Caught();
             }
 
-            distances = PathFinding.InitMoves(distances, iPos, jPos);
-            PathFinding.CalculateMoves(grid, iPos, jPos, pacman.iPos, pacman.jPos, ref distances);
-            //for (int i = 0; i < distances.GetLength(1); i++)
-            //{
-            //	for (int j = 0; j < distances.GetLength(0); j++)
-            //	{
-            //		if (distances[j, i] != int.MaxValue)
-            //			Console.Write(((distances[j, i] <= 9) ? "0" + distances[j, i] : distances[j, i] + "") + " ");
-            //		else
-            //		{
-            //			Console.Write("XX ");
-            //		}
-            //	}
-            //	Console.WriteLine();
-            //}
-            nextMove = PathFinding.FindFirstMove(distances, pacman.iPos, pacman.jPos, pacman.iPos, pacman.jPos, nextMove);
+			    }
+			    //Console.WriteLine(nextMove);
 
-            if (state == GhostState.Frightened)
-            {
+			    if (totalTime > 0.2f)
+			    {
+				    totalTime = 0;
+				    switch (nextMove)
+				    {
+					    case Direction.Down:
+						    jPos++;
+						    break;
 
-            }
+					    case Direction.Left:
+						    iPos--;
+						    break;
 
-            else if (state == GhostState.Scatter)
-            {
-            }
+					    case Direction.Right:
+						    iPos++;
+						    break;
 
-            if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
-            {
+					    case Direction.Up:
+						    jPos--;
+						    break;
 
-                GotPacman = true;
-                pacman.Caught();
-
-            }
-
-
-            //Console.WriteLine(nextMove);
-
-            if (totalTime > 0.2f)
-            {
-                totalTime = 0;
-                switch (nextMove)
-                {
-                    case Direction.Down:
-                        jPos++;
-                        break;
-
-                    case Direction.Left:
-                        iPos--;
-                        break;
-
-                    case Direction.Right:
-                        iPos++;
-                        break;
-
-                    case Direction.Up:
-                        jPos--;
-                        break;
-
-                }
-            }
-        }
+				    }
+			    }
+		    }
+	    }
 
         private void ChangeToFrightenedMode()
         {
             body.FillColor = Color.Blue;
             SuddenlyChangeDirection();
-
-
-
-
-        }
+		}
 
         private void SuddenlyChangeDirection()
         {
