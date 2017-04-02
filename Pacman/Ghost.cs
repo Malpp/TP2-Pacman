@@ -90,13 +90,13 @@ namespace Pacman
 			else if (state == GhostState.Scatter)
 			{
 
-				if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
-				{
 
-					GotPacman = true;
-					pacman.Caught();
-				}
+			}
+			if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
+			{
 
+				GotPacman = true;
+				pacman.Caught();
 			}
 			//Console.WriteLine(nextMove);
 
