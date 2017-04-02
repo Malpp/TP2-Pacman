@@ -305,5 +305,90 @@ namespace Pacman_Tests
 			//Pas de cage de fantomes
 		}
 
+		/// <summary>
+		/// Teste si les éléments chargés sont corrects
+		/// Ici quelques super-pills à l'aide de GetGridElementAt
+		/// Vous devez vous assurer que les super-pastilles sont aux bons endroits
+		/// à l'aide de la méthode GetGridElementAt
+		/// </summary>
+		[TestMethod]
+		public void TestGetElementAt02()
+		{
+		
+			Grid grid = new Grid();
+
+			grid.LoadLevelFromString(VALID_LEVEL);
+
+			Assert.AreEqual(PacmanElement.Pellet,grid.GetElementAt(1,3));
+			Assert.AreEqual(PacmanElement.Pellet, grid.GetElementAt(1, 22));
+			Assert.AreEqual(PacmanElement.Pellet, grid.GetElementAt(26, 3));
+			Assert.AreEqual(PacmanElement.Pellet, grid.GetElementAt(26, 22));
+
+		}
+
+		/// <summary>
+		/// Teste si les éléments chargés sont corrects
+		/// Ici  quelques pastilles "régulières".
+		/// Vous devez vous assurer que les pastilles sont aux bons endroits
+		/// à l'aide de la méthode GetGridElementAt. Faites 5-4 vérifications.
+		/// </summary>
+		[TestMethod]
+		public void TestGetElementAt03()
+		{
+			Grid grid = new Grid();
+
+			grid.LoadLevelFromString(VALID_LEVEL);
+
+			Assert.AreEqual(PacmanElement.Dot, grid.GetElementAt(1, 2));
+			Assert.AreEqual(PacmanElement.Dot, grid.GetElementAt(1, 21));
+			Assert.AreEqual(PacmanElement.Dot, grid.GetElementAt(26, 4));
+			Assert.AreEqual(PacmanElement.Dot, grid.GetElementAt(26, 21));
+		}
+
+		/// <summary>
+		/// Teste l'accès à un élément inexistant à l'extérieur de la grille
+		///                                       --------------------------
+		/// Attention!  Votre méthode GetGridElementAt doit lancer une exception
+		/// de type ArgumentOutOfRangeException si l'on tente d'accéder à un élément
+		/// à l'extérieur de la grille. 
+		/// </summary>
+		[TestMethod]
+		public void TestGetElementAt04()
+		{
+			Grid grid = new Grid();
+
+			grid.LoadLevelFromString(VALID_LEVEL);
+
+			Assert.AreEqual(PacmanElement.Wall, grid.GetElementAt(-1, -2));
+			Assert.AreEqual(PacmanElement.Empty, grid.GetElementAtPacman(-1, -21));
+		}
+
+		/// <summary>
+		/// Teste la modification valide d'un élément de votre
+		/// choix avec la méthode SetGridElementAt.
+		/// Vous devez faire un SetGridElementAt avec une position
+		/// et un type d'élément de votre choix et vous assurer
+		/// par la suite que la modification a été faite dans la grille.
+		/// </summary>
+		[TestMethod]
+		public void TestSetElementAt01()
+		{
+			//Nous avon pas besoin de cette fonction
+			//Voir document word de remise
+		}
+		/// <summary>
+		/// Teste la modification invalide d'un élément à l'extérieur de la grille
+		///                                               ------------------------
+		/// Attention!  Votre méthode SetGridElementAt doit lancer une exception
+		/// de type ArgumentOutOfRangeException si l'on tente d'accéder à un élément
+		/// à l'extérieur de la grille.                                              
+		/// </summary>
+		[TestMethod]
+		public void TestSetElementAt02()
+		{
+			//Nous avon pas besoin de cette fonction
+			//Voir document word de remise
+		}
+
 	}
 }
