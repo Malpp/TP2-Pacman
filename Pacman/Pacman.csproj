@@ -79,12 +79,14 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="GhostNames.cs" />
     <Compile Include="GhostState.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Pacman.cs" />
     <Compile Include="PacmanElement.cs" />
+    <Compile Include="PacmanState.cs" />
     <Compile Include="PathFinding.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +112,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Art\dwall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Art\ghosts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Art\jdoor.png">

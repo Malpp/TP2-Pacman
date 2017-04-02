@@ -9,7 +9,7 @@ using SFML.System;
 
 namespace Pacman
 {
-	class Score
+	static class Score
 	{
 
 		public const int TOTAL_DOTS = 240;
@@ -20,36 +20,34 @@ namespace Pacman
 
 		public static readonly Font textFont;
 
-		private int dotsEaten;
-		private int pelletsEaten;
-		private bool dotCompleteFlag;
-		private bool pelletCompleteFlag;
-		private int score;
-		private Text scoreText;
-		private int ghostMultiplier;
-		private int currentScoreLength;
-		private Text highScoreText;
-		private Text highScoreScoreText;
-		private int highScore;
-		private int currentHighScoreLength;
+		private static int dotsEaten;
+		private static int pelletsEaten;
+		private static bool dotCompleteFlag;
+		private static bool pelletCompleteFlag;
+		private static int score;
+		private static Text scoreText;
+		private static int ghostMultiplier;
+		private static int currentScoreLength;
+		private static Text highScoreText;
+		private static Text highScoreScoreText;
+		private static int highScore;
+		private static int currentHighScoreLength;
+		private static int lives;
+		private static Sprite lifeSprite;
+		private static bool gameOver;
+		private static bool beatHighScore;
 
 		static Score()
 		{
 			
 			textFont = new Font("Assets/emulogic.ttf");
-
-		}
-
-		public Score()
-		{
-
 			dotsEaten = 0;
 			pelletsEaten = 0;
 			dotCompleteFlag = false;
 			pelletCompleteFlag = false;
 			score = 0;
 			scoreText = new Text("00", textFont, Grid.TILE_SIZE);
-			scoreText.Origin = new Vector2f(-Grid.TILE_SIZE * 5,-Grid.TILE_SIZE);
+			scoreText.Origin = new Vector2f(-Grid.TILE_SIZE * 5, -Grid.TILE_SIZE);
 			ghostMultiplier = 1;
 			highScoreText = new Text("HIGH SCORE", textFont, Grid.TILE_SIZE);
 			highScoreText.Position = new Vector2f(Grid.TILE_SIZE * 9, 0);
@@ -59,18 +57,36 @@ namespace Pacman
 			highScoreScoreText = new Text(highScore.ToString(), textFont, Grid.TILE_SIZE);
 			UpdateHighScoreText();
 
+			lifeSprite  = new Sprite(Pacman.PacmanTexture, new IntRect(Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE));
+			lifeSprite.Scale = new Vector2f(Grid.TILE_SIZE / 8f * 0.8f, Grid.TILE_SIZE / 8f * 0.8f);
+
+			lives = 2;
+			gameOver = false;
+			beatHighScore = false;
+
 		}
 
-		public void Draw(RenderWindow window)
+		public static bool GameOver
+		{
+			get { return gameOver; }
+		}
+
+		public static void Draw(RenderWindow window)
 		{
 			
 			window.Draw(scoreText);
 			window.Draw(highScoreText);
 			window.Draw(highScoreScoreText);
 
+			for (int i = lives; i > 0; i--)
+			{
+				lifeSprite.Position = new Vector2f(Grid.TILE_SIZE * i * 1.7f + Grid.TILE_SIZE, Grid.TILE_SIZE * 34);
+				window.Draw(lifeSprite);
+			}
+
 		}
 
-		public void EatDot()
+		public static void EatDot()
 		{
 
 			dotsEaten++;
@@ -81,7 +97,7 @@ namespace Pacman
 
 		}
 
-		public void EatPellet()
+		public static void EatPellet()
 		{
 
 			pelletsEaten++;
@@ -92,7 +108,7 @@ namespace Pacman
 
 		}
 
-		public int EatGhost()
+		public static int EatGhost()
 		{
 
 			score += SCORE_GHOST * ghostMultiplier;
@@ -103,25 +119,26 @@ namespace Pacman
 
 		}
 
-		public void ResetMultipler()
+		public static void ResetMultipler()
 		{
 
 			ghostMultiplier = 1;
 
 		}
 
-		public bool IsBoardCleared()
+		public static bool IsBoardCleared()
 		{
 
 			return dotCompleteFlag && pelletCompleteFlag;
 
 		}
 
-		private void UpdateScoreText()
+		private static void UpdateScoreText()
 		{
 
 			if (score > highScore)
 			{
+				beatHighScore = true;
 				highScore = score;
 				UpdateHighScoreText();
 			}
@@ -135,7 +152,7 @@ namespace Pacman
 
 		}
 
-		private void UpdateHighScoreText()
+		private static void UpdateHighScoreText()
 		{
 
 			highScoreScoreText.DisplayedString = highScore.ToString();
@@ -147,7 +164,47 @@ namespace Pacman
 
 		}
 
-		private void GetHighScoreFromFile()
+		public static void LostLife()
+		{
+			lives--;
+
+			if (lives < 0)
+				gameOver = true;
+
+		}
+
+		public static void Reset()
+		{
+			if (beatHighScore)
+			{
+				SetHighScoreToFile();
+				GetHighScoreFromFile();
+			}
+			beatHighScore = false;
+			lives = 2;
+			gameOver = false;
+			score = 0;
+			scoreText.DisplayedString = "00";
+			dotCompleteFlag = false;
+			pelletCompleteFlag = false;
+			pelletsEaten = 0;
+			dotsEaten = 0;
+		}
+
+		public static void WinReset()
+		{
+			dotCompleteFlag = false;
+			pelletCompleteFlag = false;
+			pelletsEaten = 0;
+			dotsEaten = 0;
+		}
+
+		private static void SetHighScoreToFile()
+		{
+			File.WriteAllText(@"Assets\highscore.txt", highScore.ToString());
+		}
+
+		private static void GetHighScoreFromFile()
 		{
 
 			string text = File.ReadAllText(@"Assets\highscore.txt");

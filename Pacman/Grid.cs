@@ -54,7 +54,6 @@ namespace Pacman
 
 		private bool shouldBlink;
 		private float totalTime;
-		private Score score;
         private bool isPelletActive;
         private float pelletTime;
 
@@ -128,7 +127,6 @@ namespace Pacman
 
 			shouldBlink = true;
 			totalTime = 0;
-			score = new Score();
 
 		}
 
@@ -154,14 +152,14 @@ namespace Pacman
 			{
 
 				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
-				score.EatDot();
+				Score.EatDot();
 
 			}
 			if (grid[pacman.iPos, pacman.jPos] == PacmanElement.Pellet)
 			{
 
 				grid[pacman.iPos, pacman.jPos] = PacmanElement.Empty;
-				score.EatPellet();
+				Score.EatPellet();
                 isPelletActive = true;
 			}
 
@@ -180,8 +178,6 @@ namespace Pacman
 		/// <param name="window">The window.</param>
 		public void Draw(RenderWindow window)
 		{
-
-			score.Draw(window);
 
 			for (int i = 0; i < GRID_HEIGHT; i++)
 			{
@@ -435,19 +431,7 @@ namespace Pacman
 					// Read the stream to a string, and write the string to the console.
 					String line = sr.ReadToEnd();
 
-					string[] rows = line.Split('\n');
-
-					for (int i = 0; i < GRID_HEIGHT; i++)
-					{
-
-						for (int j = 0; j < GRID_WIDTH; j++)
-						{
-
-							grid[j, i] = (PacmanElement)rows[i][j];
-
-						}
-
-					}
+					LoadLevelFromString(line);
 
 				}
 			}
@@ -457,6 +441,23 @@ namespace Pacman
 				Console.WriteLine(e.Message);
 			}
 
+		}
+
+		private void LoadLevelFromString(string line)
+		{
+			string[] rows = line.Split('\n');
+
+			for (int i = 0; i < GRID_HEIGHT; i++)
+			{
+
+				for (int j = 0; j < GRID_WIDTH; j++)
+				{
+
+					grid[j, i] = (PacmanElement)rows[i][j];
+
+				}
+
+			}
 		}
 
 		/// <summary>
