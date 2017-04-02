@@ -185,6 +185,18 @@ namespace Pacman
 			gameOver = false;
 			score = 0;
 			scoreText.DisplayedString = "00";
+			dotCompleteFlag = false;
+			pelletCompleteFlag = false;
+			pelletsEaten = 0;
+			dotsEaten = 0;
+		}
+
+		public static void WinReset()
+		{
+			dotCompleteFlag = false;
+			pelletCompleteFlag = false;
+			pelletsEaten = 0;
+			dotsEaten = 0;
 		}
 
 		private static void SetHighScoreToFile()

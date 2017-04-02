@@ -35,6 +35,7 @@ namespace Pacman
 		private float readyTime;
 		private Text gameOverText;
 		private float gameOverTime;
+		private float winTime;
 
 		/// <summary>
 		/// Constructor of the window
@@ -174,7 +175,7 @@ namespace Pacman
 			{
 				pacman.Update(gameTime.AsSeconds(), grid);
 				grid.Update(gameTime.AsSeconds(), pacman);
-				ghost.Update(gameTime.AsSeconds(), grid, pacman);
+				//ghost.Update(gameTime.AsSeconds(), grid, pacman);
 
 				if (pacman.IsDead)
 				{
@@ -183,7 +184,11 @@ namespace Pacman
 						gameState = GameState.Lose;
 					else
 						Init_Game();
+				}else if (Score.IsBoardCleared())
+				{
+					gameState = GameState.Win;
 				}
+
 			}
 			else if(gameState == GameState.Lose)
 			{
@@ -196,6 +201,18 @@ namespace Pacman
 				{
 					Init_Game();
 					Score.Reset();
+				}
+
+			}
+			else
+			{
+
+				winTime += gameTime.AsSeconds();
+
+				if (winTime > 2f)
+				{
+					Init_Game();
+					Score.WinReset();
 				}
 
 			}
@@ -238,6 +255,7 @@ namespace Pacman
 			gameState = GameState.Ready;
 			readyTime = 0;
 			gameOverTime = 0;
+			winTime = 0;
 
 		}
 

@@ -426,19 +426,7 @@ namespace Pacman
 					// Read the stream to a string, and write the string to the console.
 					String line = sr.ReadToEnd();
 
-					string[] rows = line.Split('\n');
-
-					for (int i = 0; i < GRID_HEIGHT; i++)
-					{
-
-						for (int j = 0; j < GRID_WIDTH; j++)
-						{
-
-							grid[j, i] = (PacmanElement)rows[i][j];
-
-						}
-
-					}
+					LoadLevelFromString(line);
 
 				}
 			}
@@ -448,6 +436,23 @@ namespace Pacman
 				Console.WriteLine(e.Message);
 			}
 
+		}
+
+		private void LoadLevelFromString(string line)
+		{
+			string[] rows = line.Split('\n');
+
+			for (int i = 0; i < GRID_HEIGHT; i++)
+			{
+
+				for (int j = 0; j < GRID_WIDTH; j++)
+				{
+
+					grid[j, i] = (PacmanElement)rows[i][j];
+
+				}
+
+			}
 		}
 
 		/// <summary>
