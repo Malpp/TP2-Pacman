@@ -23,7 +23,6 @@ namespace Pacman
 		//Elements to pick up
 		Dot = 'D',
 		Pellet = 'S',
-		Fruit = 'F',
 
 		//Small corner
 		//bottom left
