@@ -175,7 +175,7 @@ namespace Pacman
 			{
 				pacman.Update(gameTime.AsSeconds(), grid);
 				grid.Update(gameTime.AsSeconds(), pacman);
-				//ghost.Update(gameTime.AsSeconds(), grid, pacman);
+				ghost.Update(gameTime.AsSeconds(), grid, pacman);
 
 				if (pacman.IsDead)
 				{

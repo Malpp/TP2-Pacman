@@ -70,14 +70,14 @@ namespace Pacman
 
 		}
 
-		public Pacman()
+		public Pacman(int jPos = 23, int iPos = 13)
 		{
 			
 			direction = Direction.Up;
 			totalTime = 0;
 
-			_jPos = 23;
-			_iPos = 13;
+			_jPos = jPos;
+			_iPos = iPos;
 			toMoveDirection = Direction.Left;
 
 			iSpritePos = _iPos;

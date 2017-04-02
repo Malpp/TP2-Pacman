@@ -54,8 +54,23 @@ namespace Pacman
 
 		private bool shouldBlink;
 		private float totalTime;
-        public bool isPelletActive;
+        private bool isPelletActive;
         private float pelletTime;
+
+		public bool IsPelletActive
+		{
+			get { return isPelletActive; }
+		}
+
+		public int Width
+		{
+			get { return grid.GetLength(0); }
+		}
+
+		public int Height
+		{
+			get { return grid.GetLength(1); }
+		}
 
 		#endregion
 		/// <summary>
@@ -438,9 +453,24 @@ namespace Pacman
 
 		}
 
-		private void LoadLevelFromString(string line)
+		public bool LoadLevelFromString(string line)
 		{
+
+			if (line == "")
+				return false;
+
 			string[] rows = line.Split('\n');
+
+			if (rows.Length != GRID_HEIGHT)
+				return false;
+
+			foreach (string row in rows)
+			{
+
+				if (row.Length != Grid.GRID_WIDTH - 1 && row.Length != Grid.GRID_WIDTH)
+					return false;
+
+			}
 
 			for (int i = 0; i < GRID_HEIGHT; i++)
 			{
@@ -453,6 +483,8 @@ namespace Pacman
 				}
 
 			}
+
+			return true;
 		}
 
 		/// <summary>
