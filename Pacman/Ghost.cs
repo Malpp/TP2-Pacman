@@ -16,9 +16,9 @@ namespace Pacman
         public GhostState state = GhostState.Chase;
         private static CircleShape body;
 
-		private static bool GotPacman;
+        private static bool GotPacman;
 
-		public const float UPDATE_TICKRATE = 0.3f;
+        public const float UPDATE_TICKRATE = 0.3f;
 
         private int iPos;
         private int jPos;
@@ -28,18 +28,18 @@ namespace Pacman
 
         public Direction direction = Direction.Down;
 
-		static Ghost()
-		{
-			body = new CircleShape(Grid.TILE_SIZE / 2f);
-			body.FillColor = Color.Red;
-			GotPacman = false;
-		}
+        static Ghost()
+        {
+            body = new CircleShape(Grid.TILE_SIZE / 2f);
+            body.FillColor = Color.Red;
+            GotPacman = false;
+        }
 
         public Ghost()
         {
 
             distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
-			GotPacman = false;
+            GotPacman = false;
 
             iPos = 14;
             jPos = 13;
@@ -95,6 +95,7 @@ namespace Pacman
 
 				    GotPacman = true;
 				    pacman.Caught();
+            }
 
 			    }
 			    //Console.WriteLine(nextMove);
@@ -125,7 +126,7 @@ namespace Pacman
 		    }
 	    }
 
-	    private void ChangeToFrightenedMode()
+        private void ChangeToFrightenedMode()
         {
             body.FillColor = Color.Blue;
             SuddenlyChangeDirection();
@@ -147,9 +148,9 @@ namespace Pacman
         //{
         //    if (distances[iPos + 1, jPos] == )
         //}
-            
 
-            
+
+
     }
 }
 
