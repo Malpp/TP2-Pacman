@@ -377,11 +377,16 @@ namespace Pacman
 
 		}
 
-		public void ChangeDirection(Direction direction, Grid grid)
+		public bool ChangeDirection(Direction direction, Grid grid)
 		{
 
 			if (CanMove(direction, grid) && IsInBounds(direction))
+			{
 				toMoveDirection = direction;
+				return true;
+			}
+
+			return false;
 
 		}
 
