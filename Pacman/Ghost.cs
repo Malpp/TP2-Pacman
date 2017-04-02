@@ -34,12 +34,15 @@ namespace Pacman
             GotPacman = false;
         }
 
-        public Ghost()
-        {
+		public Ghost(int jPos = 13, int iPos = 14)
+		{
 
             distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
             GotPacman = false;
 
+			this.iPos = iPos;
+			this.jPos = jPos;
+			nextMove = Direction.None;
             switch (names)
             {
                 case GhostNames.blinky:
