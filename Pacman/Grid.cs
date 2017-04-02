@@ -55,8 +55,13 @@ namespace Pacman
 		private bool shouldBlink;
 		private float totalTime;
 		private Score score;
-        public bool isPelletActive;
+        private bool isPelletActive;
         private float pelletTime;
+
+        public bool IsPelletActive
+        {
+            get { return isPelletActive; }
+        }
 
 		#endregion
 		/// <summary>

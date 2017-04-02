@@ -44,7 +44,7 @@ namespace Pacman
         public static void CalculateMoves(Grid grid, int origI, int origJ, int destI, int destJ, ref int[,] distances)
 		{
 			//up
-			if (origJ - 1 >= 0 && (grid.GetElementAt(origI, origJ - 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Pellet) &&
+			if (origJ - 1 >= 0 && (grid.GetElementAt(origI, origJ - 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Pellet || grid.GetElementAt(origI, origJ - 1) == PacmanElement.Jail) &&
 				distances[origI, origJ - 1] > distances[origI, origJ] + 1)
 			{
 				distances[origI, origJ - 1] = distances[origI, origJ] + 1;
@@ -53,7 +53,7 @@ namespace Pacman
 
 			//down
 			if (origJ + 1 <= Grid.GRID_HEIGHT - 1 && 
-				(grid.GetElementAt(origI, origJ + 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Pellet) &&
+				(grid.GetElementAt(origI, origJ + 1) == PacmanElement.Empty || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Dot || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Pellet || grid.GetElementAt(origI, origJ + 1) == PacmanElement.Jail) &&
 				distances[origI, origJ + 1] > distances[origI, origJ] + 1)
 			{
 				distances[origI, origJ + 1] = distances[origI, origJ] + 1;
@@ -61,7 +61,7 @@ namespace Pacman
 			}
 
 			//left
-			if (origI - 1 >= 0 && (grid.GetElementAt(origI - 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Pellet) &&
+			if (origI - 1 >= 0 && (grid.GetElementAt(origI - 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI - 1, origJ) == PacmanElement.Pellet|| grid.GetElementAt(origI - 1, origJ) == PacmanElement.Jail) &&
 				distances[origI - 1, origJ] > distances[origI, origJ] + 1)
 			{
 				distances[origI - 1, origJ] = distances[origI, origJ] + 1;
@@ -69,7 +69,7 @@ namespace Pacman
 			}
 
 			//right
-			if (origI + 1 <= Grid.GRID_WIDTH && (grid.GetElementAt(origI + 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Pellet) &&
+			if (origI + 1 <= Grid.GRID_WIDTH && (grid.GetElementAt(origI + 1, origJ) == PacmanElement.Empty || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Dot || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Pellet || grid.GetElementAt(origI + 1, origJ) == PacmanElement.Jail) &&
 				distances[origI + 1, origJ] > distances[origI, origJ] + 1)
 			{
 				distances[origI + 1, origJ] = distances[origI, origJ] + 1;
