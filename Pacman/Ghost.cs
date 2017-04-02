@@ -16,9 +16,9 @@ namespace Pacman
         public GhostState state = GhostState.Chase;
         private static CircleShape body;
 
-		private static bool GotPacman;
+        private static bool GotPacman;
 
-		public const float UPDATE_TICKRATE = 0.3f;
+        public const float UPDATE_TICKRATE = 0.3f;
 
         private int iPos;
         private int jPos;
@@ -28,29 +28,29 @@ namespace Pacman
 
         public Direction direction = Direction.Down;
 
-		static Ghost()
-		{
-			body = new CircleShape(Grid.TILE_SIZE / 2f);
-			body.FillColor = Color.Red;
-			GotPacman = false;
-		}
+        static Ghost()
+        {
+            body = new CircleShape(Grid.TILE_SIZE / 2f);
+            body.FillColor = Color.Red;
+            GotPacman = false;
+        }
 
         public Ghost()
         {
 
             distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
-			GotPacman = false;
+            GotPacman = false;
 
             iPos = 14;
             jPos = 13;
             nextMove = Direction.None;
 
-        }
-			if (!GotPacman)
-			{
-				body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
-				window.Draw(body);
-			}
+
+            if (!GotPacman)
+            {
+                body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
+                Window.Draw(body);
+            }
 
             body.Position = new Vector2f(iPos * Grid.TILE_SIZE, jPos * Grid.TILE_SIZE + Grid.DRAW_OFFSET);
             window.Draw(body);
@@ -90,18 +90,17 @@ namespace Pacman
 
             else if (state == GhostState.Scatter)
             {
-
-			if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
-			{
-
-				GotPacman = true;
-				pacman.Caught();
-
-			}
-
-		}
-	}
             }
+
+            if (iPos == pacman.iPos && jPos == pacman.jPos && !GotPacman)
+            {
+
+                GotPacman = true;
+                pacman.Caught();
+
+            }
+
+
             //Console.WriteLine(nextMove);
 
             if (totalTime > 0.2f)
@@ -155,9 +154,9 @@ namespace Pacman
         //{
         //    if (distances[iPos + 1, jPos] == )
         //}
-            
 
-            
+
+
     }
 }
 
