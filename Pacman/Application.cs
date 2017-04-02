@@ -33,8 +33,7 @@ namespace Pacman
 		private GameState gameState;
 		private Text readyText;
 		private float readyTime;
-		private Text gameText;
-		private Text overText;
+		private Text gameOverText;
 		private float gameOverTime;
 
 		/// <summary>
@@ -62,13 +61,9 @@ namespace Pacman
 			readyText.Position = new Vector2f(Grid.TILE_SIZE * 11, Grid.TILE_SIZE * 20);
 			readyText.Color = Color.Yellow;
 
-			gameText = new Text("GAME", Score.textFont, Grid.TILE_SIZE);
-			gameText.Position = new Vector2f(Grid.TILE_SIZE * 9, Grid.TILE_SIZE * 20);
-			gameText.Color = Color.Red;
-
-			overText = new Text("OVER", Score.textFont, Grid.TILE_SIZE);
-			overText.Position = new Vector2f(Grid.TILE_SIZE * 15, Grid.TILE_SIZE * 20);
-			overText.Color = new Color(255,130,50);
+			gameOverText = new Text("GAME  OVER", Score.textFont, Grid.TILE_SIZE);
+			gameOverText.Position = new Vector2f(Grid.TILE_SIZE * 9, Grid.TILE_SIZE * 20);
+			gameOverText.Color = Color.Red;
 
 		}
 
@@ -182,9 +177,15 @@ namespace Pacman
 				ghost.Update(gameTime.AsSeconds(), grid, pacman);
 
 				if (pacman.IsDead)
-					gameState = GameState.End;
+				{
+					Score.LostLife();
+					if (Score.GameOver)
+						gameState = GameState.Lose;
+					else
+						Init_Game();
+				}
 			}
-			else
+			else if(gameState == GameState.Lose)
 			{
 
 				grid.Update(gameTime.AsSeconds(), pacman);
@@ -194,6 +195,7 @@ namespace Pacman
 				if (gameOverTime > 2f)
 				{
 					Init_Game();
+					Score.Reset();
 				}
 
 			}
@@ -209,13 +211,14 @@ namespace Pacman
 
 			window.Clear();
 
+			Score.Draw(window);
+
 			if (gameState == GameState.Ready)
 				window.Draw(readyText);
 
-			if (gameState == GameState.End)
+			if (gameState == GameState.Lose)
 			{
-				window.Draw(gameText);
-				window.Draw(overText);
+				window.Draw(gameOverText);
 			}
 
 			grid.Draw(window);

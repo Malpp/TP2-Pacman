@@ -4,6 +4,7 @@
 	{
 		Ready,
 		Playing,
-		End
+		Lose,
+		Win
 	}
 }

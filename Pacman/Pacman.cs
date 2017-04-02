@@ -11,7 +11,7 @@ namespace Pacman
 	class Pacman
 	{
 
-		private static readonly Texture PacmanTexture;
+		public static readonly Texture PacmanTexture;
 
 		public const float UPDATE_TICKRATE = 0.3f;
 		public const float PACSPEED = 0.15f;

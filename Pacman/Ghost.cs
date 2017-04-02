@@ -26,7 +26,6 @@ namespace Pacman
 		private int[,] distances;
 		private Direction nextMove;
 
-
 		public Direction direction = Direction.Down;
 
 		static Ghost()
