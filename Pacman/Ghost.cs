@@ -143,6 +143,7 @@ namespace Pacman
 
                     GotPacman = true;
                     pacman.Caught();
+
                 }
             }
 

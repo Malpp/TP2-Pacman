@@ -8,7 +8,7 @@ namespace Pacman
 {
 	class Program
 	{
-
+		//<pmccormick>
 		public const int SCALE = 3;
 
 		static void Main(string[] args)

@@ -8,16 +8,16 @@ namespace Pacman
 {
 	static class PathFinding
 	{
-        //<mdumas>
+		//<pmccormick>
 
-        /// <summary>
-        /// Initialise the grid of integers to infinite and the starting point to 0
-        /// </summary>
-        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-        /// <param name="origX"> ghost position in X</param>
-        /// <param name="origY"> ghost position in Y</param>
-        /// <returns></returns>
-        public static int[,] InitMoves(int[,] distances, int origX, int origY)
+		/// <summary>
+		/// Initialise the grid of integers to infinite and the starting point to 0
+		/// </summary>
+		/// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+		/// <param name="origX"> ghost position in X</param>
+		/// <param name="origY"> ghost position in Y</param>
+		/// <returns></returns>
+		public static int[,] InitMoves(int[,] distances, int origX, int origY)
 		{
 			for (int i = 0; i < distances.GetLength(0); i++)
 			{
@@ -76,18 +76,21 @@ namespace Pacman
 				CalculateMoves(grid, origI + 1, origJ, destI, destJ, ref distances);
 			}
 		}
+		//</pmccormick>
 
-        /// <summary>
-        ///  Finds the first move the ghost has to make to reach pacman
-        /// </summary>
-        /// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
-        /// <param name="targetX"> the point where the algorithm is going next in X</param>
-        /// <param name="targetY"> the point where the algorithm is going next in Y</param>
-        /// <param name="origX"> the point the algorithm is at in X</param>
-        /// <param name="origY"> the point the algorithm is at in Y</param>
-        /// <param name="priorMove"> the reverse of the move that was just used or none if this is the first move</param>
-        /// <returns></returns>
-        public static Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
+		//<mdumas>
+
+		/// <summary>
+		///  Finds the first move the ghost has to make to reach pacman
+		/// </summary>
+		/// <param name="distances"> grid of integers that represents the distance between pacman and the ghost</param>
+		/// <param name="targetX"> the point where the algorithm is going next in X</param>
+		/// <param name="targetY"> the point where the algorithm is going next in Y</param>
+		/// <param name="origX"> the point the algorithm is at in X</param>
+		/// <param name="origY"> the point the algorithm is at in Y</param>
+		/// <param name="priorMove"> the reverse of the move that was just used or none if this is the first move</param>
+		/// <returns></returns>
+		public static Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
         {
 
 	        if (distances[origX, origY] == 0)

@@ -4,6 +4,8 @@ using Pacman;
 
 namespace Pacman_Tests
 {
+	//<pmccormick>
+
 	[TestClass]
 	public class TestsGrid
 	{

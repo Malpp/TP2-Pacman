@@ -13,6 +13,7 @@ namespace Pacman
 {
 	class Application
 	{
+		//<pmccormick>
 
 		#region Global vars
 
@@ -255,9 +256,12 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Initializes the game.
+		/// </summary>
 		private void Init_Game()
 		{
-			
+
 			grid = new Grid();
 			pacman = new Pacman();
             blinky = new Ghost(GhostNames.blinky);

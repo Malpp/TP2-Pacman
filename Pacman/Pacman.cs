@@ -11,6 +11,8 @@ namespace Pacman
 	class Pacman
 	{
 
+		//<pmccormick>
+
 		public static readonly Texture PacmanTexture;
 
 		public const float UPDATE_TICKRATE = 0.3f;

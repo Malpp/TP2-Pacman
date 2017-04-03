@@ -11,6 +11,9 @@ namespace Pacman
 {
 	class Grid
 	{
+
+		//<pmccormick>
+
 		#region Variables
 
 		public const int GRID_WIDTH = 29;
@@ -453,6 +456,11 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Loads the level from a string.
+		/// </summary>
+		/// <param name="line">The line.</param>
+		/// <returns></returns>
 		public bool LoadLevelFromString(string line)
 		{
 			bool toReturn = true;
@@ -515,6 +523,12 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Gets the element for the pacman.
+		/// </summary>
+		/// <param name="i">The i.</param>
+		/// <param name="j">The j.</param>
+		/// <returns></returns>
 		public PacmanElement GetElementAtPacman(int i, int j)
 		{
 
