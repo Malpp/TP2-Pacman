@@ -22,8 +22,6 @@ namespace Pacman
 
 		private static int dotsEaten;
 		private static int pelletsEaten;
-		private static bool dotCompleteFlag;
-		private static bool pelletCompleteFlag;
 		private static int score;
 		private static Text scoreText;
 		private static int ghostMultiplier;
@@ -46,8 +44,6 @@ namespace Pacman
 			textFont = new Font("Assets/emulogic.ttf");
 			dotsEaten = 0;
 			pelletsEaten = 0;
-			dotCompleteFlag = false;
-			pelletCompleteFlag = false;
 			score = 0;
 			scoreText = new Text("00", textFont, Grid.TILE_SIZE);
 			scoreText.Origin = new Vector2f(-Grid.TILE_SIZE * 5, -Grid.TILE_SIZE);
@@ -108,8 +104,6 @@ namespace Pacman
 			dotsEaten++;
 			score += SCORE_DOTS;
 			UpdateScoreText();
-			if (dotsEaten >= TOTAL_DOTS)
-				dotCompleteFlag = true;
 
 		}
 
@@ -122,8 +116,6 @@ namespace Pacman
 			pelletsEaten++;
 			score += SCORE_PELLETS;
 			UpdateScoreText();
-			if (pelletsEaten >= TOTAL_PELLET)
-				pelletCompleteFlag = true;
 
 		}
 
@@ -161,7 +153,7 @@ namespace Pacman
 		public static bool IsBoardCleared()
 		{
 
-			return dotCompleteFlag && pelletCompleteFlag;
+			return dotsEaten >= TOTAL_DOTS && pelletsEaten >= TOTAL_PELLET;
 
 		}
 
@@ -229,8 +221,6 @@ namespace Pacman
 			gameOver = false;
 			score = 0;
 			scoreText.DisplayedString = "00";
-			dotCompleteFlag = false;
-			pelletCompleteFlag = false;
 			pelletsEaten = 0;
 			dotsEaten = 0;
 		}
@@ -240,8 +230,6 @@ namespace Pacman
 		/// </summary>
 		public static void WinReset()
 		{
-			dotCompleteFlag = false;
-			pelletCompleteFlag = false;
 			pelletsEaten = 0;
 			dotsEaten = 0;
 		}
