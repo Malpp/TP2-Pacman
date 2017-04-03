@@ -201,6 +201,8 @@ namespace Pacman
 		{
 			lives--;
 
+			WinReset();
+
 			if (lives < 0)
 				gameOver = true;
 
