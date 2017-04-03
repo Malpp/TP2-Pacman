@@ -460,7 +460,7 @@ namespace Pacman
 			if (line == "")
 				toReturn = false;
 
-			string[] rows = line.Split('\n');
+			string[] rows = line.Split(new char[] {'\r','\n'});
 
 			if (rows.Length != GRID_HEIGHT)
 				toReturn = false;
