@@ -47,9 +47,7 @@ namespace Pacman_Tests
         [TestMethod]
         public void TestRecurseFindDirection_North02()
         {
-
-
-
+            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 5, 1, 3, 1, Direction.None));
         }
 
         /// <summary>
@@ -62,7 +60,7 @@ namespace Pacman_Tests
         [TestMethod]
         public void TestRecurseFindDirection_North03()
         {
-
+            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 5, 1, 2, 1, Direction.None));
         }
         /// <summary>
         /// Test de calcul du premier déplacement vers le sud
