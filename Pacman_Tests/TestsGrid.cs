@@ -120,40 +120,40 @@ namespace Pacman_Tests
 
 		}
 
-		private const string INVALID_LEVEL_04 = "tkkkkkkkkkkkkuUkkkkkkkkkkkkq\n" +
-												"jDDDDDDDDDDDDhfDDDDDDDDDDDDl\n" +
-												"jDdeeaDdeeeaDhfDdeeeaDdeeaDl\n" +
-												"jSh00fDh000fDhfDh000fDh00fSl\n" +
-												"jDcggbDcgggbDcbDcgggbDcggbDl\n" +
-												"jDDDDDDDDDDDDDDDDDDDDDDDDDDl\n" +
-												"jDdeeaDdaDdeeeeeeaDdaDdeeaDl\n" +
-												"jDcggbDhfDcggmpggbDhfDcggbDl\n" +
-												"jDDDDDDhfDDDDhfDDDDhfDDDDDDl\n" +
-												"siiiiaDhoeea0hf0deenfDdiiiir\n" +
-												"00000jDhpggb0cb0cggmfDl00000\n" +
-												"00000jDhf0000000000hfDl00000\n" +
-												"00000jDhf0diyJJzia0hfDl00000\n" +
-												"kkkkkbDcb0l000000j0cbDckkkkk\n" +
-												"000000D000l000000j000D000000\n" +
-												"iiiiiaDda0l000000j0daDdiiiii\n" +
-												"00000jDhf0ckkkkkkb0hfDl00000\n" +
-												"00000jDhf0000000000hfDl00000\n" +
-												"00000jDhf0deeeeeea0hfDl00000\n" +
-												"tkkkkbDcb0cggmpggb0cbDckkkkq\n" +
-												"jDDDDDDDDDDDDhfDDDDDDDDDDDDl\n" +
-												"jDdeeaDdeeeaDhfDdeeeaDdeeaDl\n" +
-												"jScgmfDcgggbDcbDcgggbDhpgbSl\n" +
-												"jDDDhfDDDDDDD00DDDDDDDhfDDDl\n" +
-												"XeaDhfDdaDdeeeeeeaDdaDhfDdev\n" +
-												"xgbDcbDhfDcggmpggbDhfDcbDcgV\n" +
-												"jDDDDDDhfDDDDhfDDDDhfDDDDDDl\n" +
-												"jDdeeeenoeeaDhfDdeenoeeeeaDl\n" +
-												"jDcggggggggbDcbDcggggggggbDl\n" +
-												"jDDDDDDDDDDDDDDDDDDDDDDDDDDl\n" +
-												"siiiiiiiiiiiiiiiiiiiiiiiiiir\n";
+		private const string INVALID_LEVEL_04 = "tkkkkkkkkkkkkuUkkkkkkkkkkkk\n" +
+												"jDDDDDDDDDDDDhfDDDDDDDDDDDD\n" +
+												"jDdeeaDdeeeaDhfDdeeeaDdeeaD\n" +
+												"jSh00fDh000fDhfDh000fDh00fS\n" +
+												"jDcggbDcgggbDcbDcgggbDcggbD\n" +
+												"jDDDDDDDDDDDDDDDDDDDDDDDDDD\n" +
+												"jDdeeaDdaDdeeeeeeaDdaDdeeaD\n" +
+												"jDcggbDhfDcggmpggbDhfDcggbD\n" +
+												"jDDDDDDhfDDDDhfDDDDhfDDDDDD\n" +
+												"siiiiaDhoeea0hf0deenfDdiiii\n" +
+												"00000jDhpggb0cb0cggmfDl0000\n" +
+												"00000jDhf0000000000hfDl0000\n" +
+												"00000jDhf0diyJJzia0hfDl0000\n" +
+												"kkkkkbDcb0l000000j0cbDckkkk\n" +
+												"000000D000l000000j000D00000\n" +
+												"iiiiiaDda0l000000j0daDdiiii\n" +
+												"00000jDhf0ckkkkkkb0hfDl0000\n" +
+												"00000jDhf0000000000hfDl0000\n" +
+												"00000jDhf0deeeeeea0hfDl0000\n" +
+												"tkkkkbDcb0cggmpggb0cbDckkkk\n" +
+												"jDDDDDDDDDDDDhfDDDDDDDDDDDD\n" +
+												"jDdeeaDdeeeaDhfDdeeeaDdeeaD\n" +
+												"jScgmfDcgggbDcbDcgggbDhpgbS\n" +
+												"jDDDhfDDDDDDD00DDDDDDDhfDDD\n" +
+												"XeaDhfDdaDdeeeeeeaDdaDhfDde\n" +
+												"xgbDcbDhfDcggmpggbDhfDcbDcg\n" +
+												"jDDDDDDhfDDDDhfDDDDhfDDDDDD\n" +
+												"jDdeeeenoeeaDhfDdeenoeeeeaD\n" +
+												"jDcggggggggbDcbDcggggggggbD\n" +
+												"jDDDDDDDDDDDDDDDDDDDDDDDDDD\n" +
+												"siiiiiiiiiiiiiiiiiiiiiiiiii\n";
 
 		/// <summary>
-		/// Manque de colonne
+		/// Manque de colonnes
 		/// </summary>
 		[TestMethod]
 		public void TestInvalidLoadContent5()
@@ -190,7 +190,7 @@ namespace Pacman_Tests
 												"jDDDDDDDDDDDDhfDDDDDDDDDDDDlW\n" +
 												"jDdeeaDdeeeaDhfDdeeeaDdeeaDlW\n" +
 												"jScgmfDcgggbDcbDcgggbDhpgbSlW\n" +
-												"jDDDhfDDDDDDD00DDDDDDDhfDDDl\n" +
+												"jDDDhfDDDDDDD00DDDDDDDhDDl\n" +
 												"XeaDhfDdaDdeeeeeeaDdaDhfDdevW\n" +
 												"xgbDcbDhfDcggmpggbDhfDcbDcgVW\n" +
 												"jDDDDDDhfDDDDhfDDDDhfDDDDDDlW\n" +
