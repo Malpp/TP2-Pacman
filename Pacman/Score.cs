@@ -37,9 +37,12 @@ namespace Pacman
 		private static bool gameOver;
 		private static bool beatHighScore;
 
+		/// <summary>
+		/// Initializes the <see cref="Score" /> class.
+		/// </summary>
 		static Score()
 		{
-			
+
 			textFont = new Font("Assets/emulogic.ttf");
 			dotsEaten = 0;
 			pelletsEaten = 0;
@@ -57,7 +60,7 @@ namespace Pacman
 			highScoreScoreText = new Text(highScore.ToString(), textFont, Grid.TILE_SIZE);
 			UpdateHighScoreText();
 
-			lifeSprite  = new Sprite(Pacman.PacmanTexture, new IntRect(Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE));
+			lifeSprite = new Sprite(Pacman.PacmanTexture, new IntRect(Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE, Pacman.TEXTURE_SIZE));
 			lifeSprite.Scale = new Vector2f(Grid.TILE_SIZE / 8f * 0.8f, Grid.TILE_SIZE / 8f * 0.8f);
 
 			lives = 2;
@@ -66,11 +69,21 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether [game over].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [game over]; otherwise, <c>false</c>.
+		/// </value>
 		public static bool GameOver
 		{
 			get { return gameOver; }
 		}
 
+		/// <summary>
+		/// Draws to the specified window.
+		/// </summary>
+		/// <param name="window">The window.</param>
 		public static void Draw(RenderWindow window)
 		{
 			
@@ -86,6 +99,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Add a dot score.
+		/// </summary>
 		public static void EatDot()
 		{
 
@@ -97,6 +113,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Add a pellet score.
+		/// </summary>
 		public static void EatPellet()
 		{
 
@@ -108,6 +127,10 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Add a ghost score.
+		/// </summary>
+		/// <returns></returns>
 		public static int EatGhost()
 		{
 
@@ -119,6 +142,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Resets the multipler.
+		/// </summary>
 		public static void ResetMultipler()
 		{
 
@@ -126,6 +152,12 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Determines whether [the board is cleared].
+		/// </summary>
+		/// <returns>
+		///   <c>true</c> if [is board cleared]; otherwise, <c>false</c>.
+		/// </returns>
 		public static bool IsBoardCleared()
 		{
 
@@ -133,6 +165,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Updates the score text.
+		/// </summary>
 		private static void UpdateScoreText()
 		{
 
@@ -152,6 +187,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Updates the high score text.
+		/// </summary>
 		private static void UpdateHighScoreText()
 		{
 
@@ -164,6 +202,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Loses a life.
+		/// </summary>
 		public static void LostLife()
 		{
 			lives--;
@@ -173,6 +214,9 @@ namespace Pacman
 
 		}
 
+		/// <summary>
+		/// Resets the score.
+		/// </summary>
 		public static void Reset()
 		{
 			if (beatHighScore)
@@ -191,6 +235,9 @@ namespace Pacman
 			dotsEaten = 0;
 		}
 
+		/// <summary>
+		/// Resets for a win.
+		/// </summary>
 		public static void WinReset()
 		{
 			dotCompleteFlag = false;
@@ -199,11 +246,17 @@ namespace Pacman
 			dotsEaten = 0;
 		}
 
+		/// <summary>
+		/// Sets the highscore to a file.
+		/// </summary>
 		private static void SetHighScoreToFile()
 		{
 			File.WriteAllText(@"Assets\highscore.txt", highScore.ToString());
 		}
 
+		/// <summary>
+		/// Gets the highscore from a file.
+		/// </summary>
 		private static void GetHighScoreFromFile()
 		{
 
