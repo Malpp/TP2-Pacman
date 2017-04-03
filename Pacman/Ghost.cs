@@ -10,7 +10,7 @@ namespace Pacman
 {
     class Ghost
     {
-        private static CircleShape body;
+        private CircleShape body;
 
         private static bool GotPacman;
 
@@ -26,14 +26,15 @@ namespace Pacman
 
         static Ghost()
         {
-            body = new CircleShape(Grid.TILE_SIZE / 2f);
             GotPacman = false;
         }
 
         public Ghost(GhostNames name)
         {
 
-            distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
+			body = new CircleShape(Grid.TILE_SIZE / 2f);
+
+			distances = new int[Grid.GRID_WIDTH, Grid.GRID_HEIGHT];
             GotPacman = false;
             nextMove = Direction.None;
             switch (name)
