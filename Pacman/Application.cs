@@ -178,10 +178,10 @@ namespace Pacman
 			{
 				pacman.Update(gameTime.AsSeconds(), grid);
 				grid.Update(gameTime.AsSeconds(), pacman);
-				blinky.Update(gameTime.AsSeconds(), grid, pacman);
-                inky.Update(gameTime.AsSeconds(), grid, pacman);
-                pinky.Update(gameTime.AsSeconds(), grid, pacman);
-                clyde.Update(gameTime.AsSeconds(), grid, pacman);
+				blinky.Update(gameTime.AsSeconds(), grid, pacman, GhostNames.blinky);
+                inky.Update(gameTime.AsSeconds(), grid, pacman, GhostNames.inky);
+                pinky.Update(gameTime.AsSeconds(), grid, pacman, GhostNames.pinky);
+                clyde.Update(gameTime.AsSeconds(), grid, pacman, GhostNames.clyde);
 
                 if (pacman.IsDead)
 				{
@@ -260,10 +260,10 @@ namespace Pacman
 			
 			grid = new Grid();
 			pacman = new Pacman();
-            blinky = new Ghost();
-            inky = new Ghost();
-            pinky = new Ghost();
-            clyde = new Ghost();
+            blinky = new Ghost(GhostNames.blinky);
+            inky = new Ghost(GhostNames.inky);
+            pinky = new Ghost(GhostNames.pinky);
+            clyde = new Ghost(GhostNames.clyde);
 			gameState = GameState.Ready;
 			readyTime = 0;
 			gameOverTime = 0;

@@ -123,11 +123,11 @@ namespace Pacman_Tests
 		{
 			// Mise en place des données      
 			Grid grid = new Grid();
-			Pacman.Pacman pacman = new Pacman.Pacman(29, 26);
-			Ghost ghost = new Ghost(29,25);
+			Pacman.Pacman pacman = new Pacman.Pacman(11,14);
+			Ghost ghost = new Ghost(GhostNames.blinky);
 
 			// Appel de la méthode à tester
-			ghost.Update(0,grid,pacman);
+			ghost.Update(0,grid,pacman, GhostNames.blinky);
 
 			// Validation des résultats
 			Assert.AreEqual(true, pacman.ChangeDirection(Direction.Left, grid));

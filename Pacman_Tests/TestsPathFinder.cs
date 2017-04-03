@@ -10,15 +10,16 @@ namespace Pacman_Tests
         #region MANDAT 2
         //Comme j'ai incorporé les 2 méthodes dans une seule méthode, les tests seront probablement assez différents.
         int[,] simpleCostArray1 = new int[,]{
-      {int.MaxValue,  int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue },
-      {int.MaxValue,  int.MaxValue, 7,            6,            7,            8,            int.MaxValue },
-      {int.MaxValue,  3,            int.MaxValue, 5,            int.MaxValue, 9,            int.MaxValue },
-      {int.MaxValue,  2,            int.MaxValue, 4,            int.MaxValue, int.MaxValue, int.MaxValue },
-      {int.MaxValue,  1,            2,            3,            int.MaxValue, 7,            int.MaxValue },
-      {int.MaxValue,  0,            int.MaxValue, 4,            int.MaxValue, 6,            int.MaxValue },
-      {int.MaxValue,  1,            2,            3,            4,            5,            int.MaxValue },
-      {int.MaxValue,  int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue }
+      /*0*/{int.MaxValue,  int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue },
+      /*1*/{int.MaxValue,  int.MaxValue, 7,            6,            7,            8,            int.MaxValue },
+      /*2*/{int.MaxValue,  3,            int.MaxValue, 5,            int.MaxValue, 9,            int.MaxValue },
+      /*3*/{int.MaxValue,  2,            int.MaxValue, 4,            int.MaxValue, int.MaxValue, int.MaxValue },
+      /*4*/{int.MaxValue,  1,            2,            3,            int.MaxValue, 7,            int.MaxValue },
+      /*5*/{int.MaxValue,  0,            int.MaxValue, 4,            int.MaxValue, 6,            int.MaxValue },
+      /*6*/{int.MaxValue,  1,            2,            3,            4,            5,            int.MaxValue },
+      /*7*/{int.MaxValue,  int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue }
     };
+                /*0*/         /*1*/       /*2*/           /*3*/          /*4*/       /*5*/          /*6*/
         /// <summary>
         /// Test de l'intéraction lorsque/si le fantôme se retrouve à la même position que le pacman
         /// </summary>
@@ -34,7 +35,7 @@ namespace Pacman_Tests
         [TestMethod]
         public void TestRecurseFindDirection_Up01()
         {
-            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 5, 1, 4, 1, Direction.None));
+            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 1, 2, 1, 2, Direction.None));
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Pacman_Tests
         [TestMethod]
         public void TestRecurseFindDirection_North02()
         {
-            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 5, 1, 3, 1, Direction.None));
+            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 2, 5, 2, 5, Direction.None));
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Pacman_Tests
         [TestMethod]
         public void TestRecurseFindDirection_North03()
         {
-            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 5, 1, 2, 1, Direction.None));
+            Assert.AreEqual(Direction.Up, PathFinding.FindFirstMove(simpleCostArray1, 2, 1, 2, 1, Direction.None));
         }
         /// <summary>
         /// Test de calcul du premier déplacement vers le sud
