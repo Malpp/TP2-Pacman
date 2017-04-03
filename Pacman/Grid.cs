@@ -455,36 +455,42 @@ namespace Pacman
 
 		public bool LoadLevelFromString(string line)
 		{
+			bool toReturn = true;
 
 			if (line == "")
-				return false;
+				toReturn = false;
 
 			string[] rows = line.Split('\n');
 
 			if (rows.Length != GRID_HEIGHT)
-				return false;
+				toReturn = false;
 
 			foreach (string row in rows)
 			{
 
 				if (row.Length != Grid.GRID_WIDTH - 1 && row.Length != Grid.GRID_WIDTH)
-					return false;
+					toReturn = false;
 
 			}
 
-			for (int i = 0; i < GRID_HEIGHT; i++)
+			if (toReturn)
 			{
 
-				for (int j = 0; j < GRID_WIDTH; j++)
+				for (int i = 0; i < GRID_HEIGHT; i++)
 				{
 
-					grid[j, i] = (PacmanElement)rows[i][j];
+					for (int j = 0; j < GRID_WIDTH; j++)
+					{
+
+						grid[j, i] = (PacmanElement) rows[i][j];
+
+					}
 
 				}
 
 			}
 
-			return true;
+			return toReturn;
 		}
 
 		/// <summary>
