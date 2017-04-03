@@ -85,7 +85,7 @@ namespace Pacman
         /// <param name="targetY"> the point where the algorithm is going next in Y</param>
         /// <param name="origX"> the point the algorithm is at in X</param>
         /// <param name="origY"> the point the algorithm is at in Y</param>
-        /// <param name="priorMove"> the reverse of the move that was just used</param>
+        /// <param name="priorMove"> the reverse of the move that was just used or none if this is the first move</param>
         /// <returns></returns>
         public static Direction FindFirstMove(int[,] distances, int targetX, int targetY, int origX, int origY, Direction priorMove)
         {
